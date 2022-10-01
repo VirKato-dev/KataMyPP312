@@ -1,0 +1,9 @@
+package my.virkato.kata312.dao;
+
+import my.virkato.kata312.entities.RoleEntity;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RoleDao extends CrudRepository<RoleEntity, Long> {
+}
