@@ -29,10 +29,10 @@ public class AuthController {
         return "/auth/login";
     }
 
-    @PostMapping("/login")
-    public String processLogin(Model model) {
-        return "redirect:/user";
-    }
+//    @PostMapping("/login")
+//    public String processLogin(Model model) {
+//        return "redirect:/user";
+//    }
 
     @GetMapping("/register")
     public String showForm(Model model) {
