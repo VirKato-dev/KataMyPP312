@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Домашняя</title>
 </head>
 <body>
 <h3>Тестовое задание по созданию проекта со Spring Security</h3>
+<th:block>
+    <a th:if="${#httpServletRequest.remoteUser}" href="/logout">Выход из аккаунта</a>
+</th:block>
 </body>
 </html>

@@ -9,23 +9,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
-public class WebConfig {
+public class SecurityConfig {
+
+    private SuccessUserHandler successUserHandler;
+
+    public SecurityConfig(SuccessUserHandler successUserHandler) {
+        this.successUserHandler = successUserHandler;
+    }
 
     @Bean
     public SecurityFilterChain createSecurityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((req) -> req
-                        .antMatchers("/").permitAll()
-                        .antMatchers("/user/**").hasRole("USER")
-                        .antMatchers("/user/**").hasRole("ADMIN")
+        return http
+                .csrf().disable() //лучше отключить пока
+                .authorizeHttpRequests(req -> req
+                        .antMatchers("/", "/register").permitAll()
                         .antMatchers("/admin/**").hasRole("ADMIN")
+                        .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
+                .formLogin(
+                        req -> req
+                                .loginPage("/login")
+                                .permitAll()
+                                .successHandler(successUserHandler)
                 )
-                .logout(LogoutConfigurer::permitAll);
-        return http.build();
+                .build();
     }
 
     @Bean

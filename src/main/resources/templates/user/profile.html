@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Профиль пользователя</title>
 </head>
 <body>
-
+<h3>Тут должен быть профиль пользователя</h3>
+<p th:text="${user.getUsername()}" />
+<p th:text="${user.getNickname()}" />
+<p th:text="${user.getPassword()}" />
 </body>
 </html>

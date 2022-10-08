@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoleDao extends CrudRepository<RoleEntity, Long> {
+    RoleEntity findRoleEntityByAuthority(String authority);
 }
