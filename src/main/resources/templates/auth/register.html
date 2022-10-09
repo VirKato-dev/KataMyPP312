@@ -12,11 +12,11 @@
 </head>
 <body>
 <div class="container">
-    <th:block th:if="${!error.isBlank()}">
-        <p th:text="${error}"/>
-    </th:block>
     <form class="form-signin" th:method="post" th:action="@{/register}">
-        <h2 class="form-signin-heading">Введите регистрационные данные</h2>
+        <h2 class="form-signin-heading">Зарегистрируйтесь пожалуйста</h2>
+        <th:block th:if="${error != null}">
+            <p class="text-warning border-warning border" th:text="${'Логин занят'}"/>
+        </th:block>
         <p>
             <label for="username" class="sr-only">Логин</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="Логин" required

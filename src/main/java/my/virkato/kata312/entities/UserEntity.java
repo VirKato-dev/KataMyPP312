@@ -30,6 +30,7 @@ public class UserEntity implements UserDetails {
     @Transient
     private String confirm;
     private String nickname;
+    private String phoneNumber;
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -7,7 +7,7 @@
 <body>
 <h3>Какая-то ошибка</h3>
 <th:block th:each="m : ${messages}">
-    <p th:each="n : ${response.getHeaders(m)}" th:text="n"></p>
+    <p th:text="${m}"></p>
 </th:block>
 </body>
 </html>

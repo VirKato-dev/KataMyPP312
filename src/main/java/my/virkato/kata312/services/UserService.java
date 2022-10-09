@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -29,6 +31,29 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserEntity createOrUpdate(UserEntity user) {
         return dao.save(user);
+    }
+
+    /***
+     * Получить всех пользователей
+     * @return список
+     */
+    public Collection<UserEntity> getList() {
+        ArrayList<UserEntity> list = new ArrayList<>();
+        dao.findAll().forEach(list::add);
+        return list;
+    }
+
+    /***
+     * Получить пользователя по ID
+     * @param id ID пользователя
+     * @return пользователь либо null
+     */
+    public UserEntity get(Long id) {
+        return dao.findById(id).orElse(null);
+    }
+
+    public void delete(Long id) {
+        dao.deleteById(id);
     }
 
 }

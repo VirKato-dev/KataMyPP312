@@ -27,11 +27,10 @@ public class SecurityConfig {
                         .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(
-                        req -> req
-                                .loginPage("/login")
-                                .permitAll()
-                                .successHandler(successUserHandler)
+                .formLogin(req -> req
+                        .loginPage("/login")
+                        .permitAll()
+                        .successHandler(successUserHandler)
                 )
                 .build();
     }
