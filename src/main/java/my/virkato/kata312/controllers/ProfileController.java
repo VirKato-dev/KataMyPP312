@@ -17,10 +17,15 @@ import java.util.Collections;
 @RequestMapping("/user")
 public class ProfileController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public ProfileController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping(params = "logout")
+    public String logout() {
+        return "redirect:/logout";
     }
 
     @GetMapping()
@@ -38,10 +43,5 @@ public class ProfileController {
             model.addAttribute("messages", Arrays.asList("Нет такого пользователя.", "Вы не угадали ID'шник ))"));
             return "error";
         }
-    }
-
-    @GetMapping(params = "logout")
-    public String logout() {
-        return "redirect:/logout";
     }
 }

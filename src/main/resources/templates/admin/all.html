@@ -29,7 +29,7 @@
 </head>
 <body>
 <div>
-    <a href="/admin/users/new">Новый пользователь</a>
+    <a href="/admin/new">Новый пользователь</a>
     <hr>
     <table>
         <thead>
@@ -41,7 +41,7 @@
         </thead>
         <tbody>
         <tr th:each="u, it : ${users}">
-            <th th:text="${it.index}+1"></th>
+            <th th:text="${u.getId()}+1"></th>
             <td style="width: 100%"><a th:href="@{/user/{i}(i=${u.getId()})}" th:text="${u.getNickname() + ' ' + u.getPhoneNumber()}"/></td>
             <td class="no-border">
                 <form th:method="get" th:action="@{/admin/{i}/edit(i=${u.getId()})}">

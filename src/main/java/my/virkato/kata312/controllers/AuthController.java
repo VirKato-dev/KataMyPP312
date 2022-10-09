@@ -16,9 +16,9 @@ import java.util.Map;
 @Controller
 public class AuthController {
 
-    private PasswordEncoder passwordEncoder;
-    private UserService userService;
-    private RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final RoleService roleService;
 
     public AuthController(PasswordEncoder passwordEncoder, UserService userService, RoleService roleService) {
         this.passwordEncoder = passwordEncoder;

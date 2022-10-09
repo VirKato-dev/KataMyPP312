@@ -1,20 +1,29 @@
 package my.virkato.kata312.controllers;
 
+import my.virkato.kata312.entities.RoleEntity;
 import my.virkato.kata312.entities.UserEntity;
+import my.virkato.kata312.services.RoleService;
 import my.virkato.kata312.services.UserService;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(params = "logout")
@@ -37,8 +46,15 @@ public class AdminController {
      */
     @PostMapping
     public String create(@ModelAttribute("user") UserEntity user) {
-        userService.createOrUpdate(user);
-        return "redirect:/admin";
+        user.setRoles(Collections.singleton(roleService.createRole("USER")));
+        user.setPassword(passwordEncoder.encode("0000"));
+        user.setUsername(user.getNickname().toLowerCase());
+        if (userService.loadUserByUsername(user.getUsername()) == null) {
+            userService.createOrUpdate(user);
+            return "redirect:/admin";
+        } else {
+            return "redirect:/admin/new?error=login is exists";
+        }
     }
 
     //--- READ

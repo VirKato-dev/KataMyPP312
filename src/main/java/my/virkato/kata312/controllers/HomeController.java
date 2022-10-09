@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
+    @GetMapping(params = "logout")
+    public String logout() {
+        return "redirect:/logout";
+    }
+
     @GetMapping
     public String showHomePage() {
         return "home";
