@@ -1,7 +1,7 @@
 package my.virkato.kata312.services;
 
-import my.virkato.kata312.dao.RoleDao;
 import my.virkato.kata312.entities.RoleEntity;
+import my.virkato.kata312.repositories.RoleDao;
 import org.springframework.stereotype.Service;
 
 @Service

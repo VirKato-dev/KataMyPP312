@@ -1,7 +1,7 @@
 package my.virkato.kata312.services;
 
-import my.virkato.kata312.dao.UserDao;
 import my.virkato.kata312.entities.UserEntity;
+import my.virkato.kata312.repositories.UserDao;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 @Service
 public class UserService implements UserDetailsService {
@@ -24,13 +25,9 @@ public class UserService implements UserDetailsService {
         return dao.findUserEntityByUsername(username);
     }
 
-    public UserDao getDao() {
-        return dao;
-    }
-
     @Transactional
-    public UserEntity createOrUpdate(UserEntity user) {
-        return dao.save(user);
+    public void createOrUpdate(UserEntity user) {
+        dao.save(user);
     }
 
     /***

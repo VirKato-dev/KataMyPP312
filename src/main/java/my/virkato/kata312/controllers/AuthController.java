@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
-import java.util.Map;
 
 @Controller
 public class AuthController {
@@ -31,11 +29,6 @@ public class AuthController {
     public String loginForm(Model model) {
         return "/auth/login";
     }
-
-//    @PostMapping("/login")
-//    public String processLogin(Model model) {
-//        return "redirect:/user";
-//    }
 
     @GetMapping("/register")
     public String showForm(Model model) {
@@ -73,5 +66,4 @@ public class AuthController {
     public String logout2() {
         return "redirect:/logout";
     }
-
 }

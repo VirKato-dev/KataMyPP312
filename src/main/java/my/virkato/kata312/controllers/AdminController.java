@@ -1,6 +1,5 @@
 package my.virkato.kata312.controllers;
 
-import my.virkato.kata312.entities.RoleEntity;
 import my.virkato.kata312.entities.UserEntity;
 import my.virkato.kata312.services.RoleService;
 import my.virkato.kata312.services.UserService;

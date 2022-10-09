@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 @Controller
 @RequestMapping("/user")
@@ -33,6 +31,7 @@ public class ProfileController {
         model.addAttribute("user", userEntity);
         return "user/profile";
     }
+
     @GetMapping("/{id}")
     public String showProfileFromAdmin(Model model, @PathVariable Long id) {
         UserEntity user = userService.get(id);

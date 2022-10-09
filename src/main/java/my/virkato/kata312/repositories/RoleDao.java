@@ -1,4 +1,4 @@
-package my.virkato.kata312.dao;
+package my.virkato.kata312.repositories;
 
 import my.virkato.kata312.entities.RoleEntity;
 import org.springframework.data.repository.CrudRepository;

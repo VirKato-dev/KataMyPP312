@@ -24,5 +24,4 @@ public class HomeController {
     public String onlyGetMapping(Model model) {
         return "home";
     }
-
 }
