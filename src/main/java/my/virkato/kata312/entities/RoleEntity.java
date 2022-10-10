@@ -47,6 +47,6 @@ public class RoleEntity implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return authority.replace("ROLE_", "");
+        return authority.replaceAll("^ROLE_", "");
     }
 }
