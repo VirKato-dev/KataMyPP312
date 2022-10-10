@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.StringJoiner;
 
 
 @Entity
@@ -61,4 +62,11 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String rolesAsText() {
+        StringJoiner str = new StringJoiner(" ");
+        getAuthorities().forEach(s -> str.add(s.toString()));
+        return str.toString();
+    }
+
 }

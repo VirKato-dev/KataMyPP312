@@ -25,12 +25,12 @@
         </thead>
         <tbody>
         <tr th:each="u, it : ${users}">
-            <td class="col-1" th:text="${u.getId()}+1"></td>
+            <td class="col-1" th:text="${u.getId()}"></td>
             <td th:text="${u.getFirstName()}"></td>
             <td th:text="${u.getLastName()}"></td>
             <td class="col-1" th:text="${u.getAge()}"></td>
             <td th:text="${u.getUsername()}"></td>
-            <td class="col-1" th:text="${u.getRoles()}"></td>
+            <td class="col-1" th:text="${u.rolesAsText()}"></td>
             <td class="col-1">
                 <form th:method="get" th:action="@{/admin/{i}/edit(i=${u.getId()})}">
                     <input class="btn btn-info" type="submit" value="редакт."/>
