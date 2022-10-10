@@ -46,8 +46,7 @@ public class AdminController {
     @PostMapping
     public String create(@ModelAttribute("user") UserEntity user) {
         user.setRoles(Collections.singleton(roleService.createRole("USER")));
-        user.setPassword(passwordEncoder.encode("0000"));
-        user.setUsername(user.getNickname().toLowerCase());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (userService.loadUserByUsername(user.getUsername()) == null) {
             userService.createOrUpdate(user);
             return "redirect:/admin";

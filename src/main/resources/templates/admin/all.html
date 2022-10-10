@@ -3,53 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
-    <style>
-        body {
-            font-size: x-large;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid;
-            align-content: center;
-        }
-
-        tr:hover td {
-            background-color: lightblue;
-        }
-
-        .no-border {
-            border: 0;
-            width: fit-content;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div>
     <a href="/admin/new">Новый пользователь</a>
     <hr>
-    <table>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Пользователь</th>
-            <th class="no-border">Действия</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+            <th>Почта</th>
+            <th>Роли</th>
+            <th>Редактировать</th>
+            <th>Удалить</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="u, it : ${users}">
-            <th th:text="${u.getId()}+1"></th>
-            <td style="width: 100%"><a th:href="@{/user/{i}(i=${u.getId()})}" th:text="${u.getNickname() + ' ' + u.getPhoneNumber()}"/></td>
-            <td class="no-border">
+            <td class="col-1" th:text="${u.getId()}+1"></td>
+            <td th:text="${u.getFirstName()}"></td>
+            <td th:text="${u.getLastName()}"></td>
+            <td class="col-1" th:text="${u.getAge()}"></td>
+            <td th:text="${u.getUsername()}"></td>
+            <td class="col-1" th:text="${u.getRoles()}"></td>
+            <td class="col-1">
                 <form th:method="get" th:action="@{/admin/{i}/edit(i=${u.getId()})}">
-                    <input type="submit" value="редакт."/>
+                    <input class="btn btn-info" type="submit" value="редакт."/>
                 </form>
+            </td>
+            <td class="col-1">
                 <form th:method="delete" th:action="@{/admin}">
                     <input type="hidden" name="id" th:value="${u.getId()}">
-                    <input type="submit" value="удалить"/>
+                    <input class="btn btn-danger" type="submit" value="удалить"/>
                 </form>
             </td>
         </tr>
