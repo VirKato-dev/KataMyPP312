@@ -63,7 +63,7 @@ public class AdminController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("users", userService.getList());
-        return "admin/all";
+        return "admin/main";
     }
 
     /***
