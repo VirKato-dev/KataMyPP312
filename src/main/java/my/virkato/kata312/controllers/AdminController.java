@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collections;
 
 @Controller
@@ -61,8 +62,9 @@ public class AdminController {
      * Получить всех пользователей
      */
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
         model.addAttribute("users", userService.getList());
+        model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
         return "admin/main";
     }
 

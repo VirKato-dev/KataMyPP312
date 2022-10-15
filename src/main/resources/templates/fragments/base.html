@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments</title>
+</head>
+<body>
+
+<nav th:fragment="navbar(user)" class="navbar fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <p class="navbar-brand col-3 mr-0 mb-0 text-light" th:text="${user.username}"></p>
+    <ul class="navbar-nav px-3">
+        <li class="text-nowrap">
+            <a class="nav-link text-secondary" href="/logout">Выйти</a>
+        </li>
+    </ul>
+</nav>
+
+<nav th:fragment="sidebar(num)" class="col-xl-1 col-md-2 col-auto d-flex d-md-block bg-light">
+    <div class="mt-5">
+        <ul class="nav flex-wrap">
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:if="${num} == 0" href="#" class="nav-link text-primary font-weight-bold">Админ</a>
+                <a th:if="${num} == 1" href="/admin" class="nav-link text-secondary">Админ</a>
+            </li>
+            <li sec:authorize="hasRole('USER')">
+                <a th:if="${num} == 0" href="/user" class="nav-link text-secondary">Пользователь</a>
+                <a th:if="${num} == 1" href="#" class="nav-link text-primary font-weight-bold">Пользователь</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<nav th:fragment="tabs">
+    <div th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" class="nav nav-tabs" id="nav-tab"
+         role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                type="button" role="tab" aria-controls="nav-home" aria-selected="true">User table
+        </button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">New user
+        </button>
+    </div>
+</nav>
+
+<main th:fragment="table(users)" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-2 mt-md-5 ">
+    <h2 th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}">Панель админа</h2>
+    <h2 th:if="${#httpServletRequest.getRequestURI().endsWith('/user')}">Информация о пользователе</h2>
+
+    <th:block th:insert="fragments/base :: tabs"/>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Возраст</th>
+                <th>Почта</th>
+                <th>Роли</th>
+                <th th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" sec:authorize="hasRole('ADMIN')"
+                    colspan="2">Действия
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u, it : ${users}">
+                <td class="col-1" th:text="${u.id}"></td>
+                <td class="col-2 text-nowrap" th:text="${u.firstName}"></td>
+                <td class="col-2 text-nowrap" th:text="${u.lastName}"></td>
+                <td class="col-1" th:text="${u.getAge()}"></td>
+                <td class="col2 text-nowrap" th:text="${u.username}"></td>
+                <td class="col-sm-2 col-xl-1 text-nowrap" th:text="${u.rolesAsText()}"></td>
+                <td th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" sec:authorize="hasRole('ADMIN')"
+                    class="col-1">
+                    <form th:method="get" th:action="@{/admin/{i}/edit(i=${u.id})}">
+                        <input class="btn btn-info" type="submit" value="редакт."/>
+                    </form>
+                </td>
+                <td th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" sec:authorize="hasRole('ADMIN')"
+                    class="col-1">
+                    <form th:method="delete" th:action="@{/admin}">
+                        <input type="hidden" name="id" th:value="${u.id}">
+                        <input class="btn btn-danger" type="submit" value="удалить"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>

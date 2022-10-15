@@ -45,6 +45,20 @@ public class Kata312Application {
             user.setRoles(roles);
             userService.createOrUpdate(user);
         }
+
+        roles.clear();
+        roles.add(roleService.createRole("USER"));
+
+        user = new UserEntity();
+        if (userService.loadUserByUsername("user@mail.ru") == null) {
+            user.setUsername("user@mail.ru");
+            user.setPassword(passwordEncoder.encode("1111"));
+            user.setAge(30);
+            user.setFirstName("Das");
+            user.setLastName("Cat");
+            user.setRoles(roles);
+            userService.createOrUpdate(user);
+        }
     }
 
 }

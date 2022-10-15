@@ -1,86 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .container-fluid {
-            margin-top: 50px;
-        }
-    </style>
 </head>
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <p class="navbar-brand col-md-auto font-weight-bold" href="#">my@mail.ru</p>
-    <p class="navbar-brand col-md" th:text="'с ролью: ' + 'роль пользователя'"></p>
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="/logout">Выйти</a>
-        </li>
-    </ul>
-</nav>
+
+<th:block th:insert="fragments/base :: navbar(${user})"/>
+
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            Админ <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Пользователь
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <h2>Панель админа</h2>
 
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Возраст</th>
-                        <th>Почта</th>
-                        <th>Роли</th>
-                        <th>Редактировать</th>
-                        <th>Удалить</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="u, it : ${users}">
-                        <td class="col-1" th:text="${u.getId()}"></td>
-                        <td th:text="${u.getFirstName()}"></td>
-                        <td th:text="${u.getLastName()}"></td>
-                        <td class="col-1" th:text="${u.getAge()}"></td>
-                        <td th:text="${u.getUsername()}"></td>
-                        <td class="col-1" th:text="${u.rolesAsText()}"></td>
-                        <td class="col-1">
-                            <form th:method="get" th:action="@{/admin/{i}/edit(i=${u.getId()})}">
-                                <input class="btn btn-info" type="submit" value="редакт."/>
-                            </form>
-                        </td>
-                        <td class="col-1">
-                            <form th:method="delete" th:action="@{/admin}">
-                                <input type="hidden" name="id" th:value="${u.getId()}">
-                                <input class="btn btn-danger" type="submit" value="удалить"/>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
+        <th:block th:insert="fragments/base :: sidebar(0)"/>
+
+        <th:block th:insert="fragments/base :: table(${users})"/>
+
     </div>
 </div>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
+<!--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"-->
+<!--        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"-->
+<!--        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"-->
+<!--        crossorigin="anonymous"></script>-->
 </body>
 </html>
