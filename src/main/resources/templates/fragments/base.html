@@ -7,6 +7,7 @@
 </head>
 <body>
 
+
 <nav th:fragment="navbar(user)" class="navbar fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <p class="navbar-brand col-3 mr-0 mb-0 text-light" th:text="${user.username}"></p>
     <ul class="navbar-nav px-3">
@@ -16,20 +17,26 @@
     </ul>
 </nav>
 
+
 <nav th:fragment="sidebar(num)" class="col-xl-1 col-md-2 col-auto d-flex d-md-block bg-light">
     <div class="mt-5">
         <ul class="nav flex-wrap">
             <li sec:authorize="hasRole('ADMIN')">
-                <a th:if="${num} == 0" href="#" class="nav-link text-primary font-weight-bold">Админ</a>
-                <a th:if="${num} == 1" href="/admin" class="nav-link text-secondary">Админ</a>
+                <a th:href="${num} == 0 ? '#' : '/admin'"
+                   th:class="${num} == 0 ? 'nav-link text-primary font-weight-bold' : 'nav-link text-secondary'">
+                    Админ
+                </a>
             </li>
             <li sec:authorize="hasRole('USER')">
-                <a th:if="${num} == 0" href="/user" class="nav-link text-secondary">Пользователь</a>
-                <a th:if="${num} == 1" href="#" class="nav-link text-primary font-weight-bold">Пользователь</a>
+                <a th:href="${num} == 1 ? '#' : '/user'"
+                   th:class="${num} == 1 ? 'nav-link text-primary font-weight-bold' : 'nav-link text-secondary'">
+                    Пользователь
+                </a>
             </li>
         </ul>
     </div>
 </nav>
+
 
 <nav th:fragment="tabs">
     <div th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" class="nav nav-tabs" id="nav-tab"
@@ -43,7 +50,8 @@
     </div>
 </nav>
 
-<main th:fragment="table(users)" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-2 mt-md-5 ">
+
+<div th:fragment="table(users)" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-2 mt-md-5 ">
     <h2 th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}">Панель админа</h2>
     <h2 th:if="${#httpServletRequest.getRequestURI().endsWith('/user')}">Информация о пользователе</h2>
 
@@ -89,7 +97,8 @@
             </tbody>
         </table>
     </div>
-</main>
+</div>
+
 
 </body>
 </html>
