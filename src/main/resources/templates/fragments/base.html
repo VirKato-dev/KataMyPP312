@@ -38,67 +38,67 @@
 </nav>
 
 
-<nav th:fragment="tabs">
-    <div th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" class="nav nav-tabs" id="nav-tab"
-         role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                type="button" role="tab" aria-controls="nav-home" aria-selected="true">User table
-        </button>
-        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">New user
-        </button>
-    </div>
-</nav>
-
-
-<div th:fragment="table(users)" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-2 mt-md-5 ">
+<div th:fragment="table(users)" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-2 mt-md-5">
     <h2 th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}">Панель админа</h2>
-    <h2 th:if="${#httpServletRequest.getRequestURI().endsWith('/user')}">Информация о пользователе</h2>
+    <h2 th:if="${#httpServletRequest.getRequestURI().contains('/user')}">Информация о пользователе</h2>
 
-    <th:block th:insert="fragments/base :: tabs"/>
+    <div th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" class="tabs">
+        <input name="mode" type="radio" id="r_users" checked>
+        <label for="r_users" onmousedown='return false'>Список пользователей</label>
+        <input name="mode" type="radio" id="r_new">
+        <label for="r_new" onmousedown='return false'>Новый пользователь</label>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-sm">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Имя</th>
-                <th>Фамилия</th>
-                <th>Возраст</th>
-                <th>Почта</th>
-                <th>Роли</th>
-                <th th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" sec:authorize="hasRole('ADMIN')"
-                    colspan="2">Действия
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="u, it : ${users}">
-                <td class="col-1" th:text="${u.id}"></td>
-                <td class="col-2 text-nowrap" th:text="${u.firstName}"></td>
-                <td class="col-2 text-nowrap" th:text="${u.lastName}"></td>
-                <td class="col-1" th:text="${u.getAge()}"></td>
-                <td class="col2 text-nowrap" th:text="${u.username}"></td>
-                <td class="col-sm-2 col-xl-1 text-nowrap" th:text="${u.rolesAsText()}"></td>
-                <td th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" sec:authorize="hasRole('ADMIN')"
-                    class="col-1">
-                    <form th:method="get" th:action="@{/admin/{i}/edit(i=${u.id})}">
-                        <input class="btn btn-info" type="submit" value="редакт."/>
-                    </form>
-                </td>
-                <td th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}" sec:authorize="hasRole('ADMIN')"
-                    class="col-1">
-                    <form th:method="delete" th:action="@{/admin}">
-                        <input type="hidden" name="id" th:value="${u.id}">
-                        <input class="btn btn-danger" type="submit" value="удалить"/>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="tab1" class="table-responsive">
+            <h3>Все пользователи</h3>
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Возраст</th>
+                    <th>Почта</th>
+                    <th>Роли</th>
+                    <th th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}"
+                        sec:authorize="hasRole('ADMIN')"
+                        colspan="2">Действия
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u, it : ${users}">
+                    <td class="col-1" th:text="${u.id}"></td>
+                    <td class="col-2 text-nowrap" th:text="${u.firstName}"></td>
+                    <td class="col-2 text-nowrap" th:text="${u.lastName}"></td>
+                    <td class="col-1" th:text="${u.getAge()}"></td>
+                    <td class="col2 text-nowrap" th:text="${u.username}"></td>
+                    <td class="col-sm-2 col-xl-1 text-nowrap" th:text="${u.rolesAsText()}"></td>
+                    <td th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}"
+                        sec:authorize="hasRole('ADMIN')"
+                        class="col-1">
+                        <form th:method="get" th:action="@{/admin/{i}/edit(i=${u.id})}">
+                            <input class="btn btn-info" type="submit" value="редакт."/>
+                        </form>
+                    </td>
+                    <td th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}"
+                        sec:authorize="hasRole('ADMIN')"
+                        class="col-1">
+                        <form th:method="delete" th:action="@{/admin}">
+                            <input type="hidden" name="id" th:value="${u.id}">
+                            <input class="btn btn-danger" type="submit" value="удалить"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="tab2">
+            <h3>Добавить нового пользователя</h3>
+        </div>
+
     </div>
 </div>
-
 
 </body>
 </html>
