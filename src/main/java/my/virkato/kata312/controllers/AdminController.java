@@ -65,7 +65,7 @@ public class AdminController {
     public String index(Model model, Principal principal) {
         model.addAttribute("users", userService.getList());
         model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
-        return "admin/main";
+        return "pages/admin";
     }
 
     /***

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal windows</title>
+</head>
+<body>
+
+<div th:fragment="delete(user)" class="modal fade" th:id="${'DELETE'+user.id}" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelDelete">Edit user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}">
+                    <fieldset disabled>
+                        <div class="mb-3">
+                            <label for="idDelete">ID: </label> <br>
+                            <input type="text" name="id" th:value="${user.id}" id="idDelete" class="form-control"
+                                   placeholder="Disabled input"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nameDelete">First name: </label><br>
+                            <input type="text" name="firstName" th:value="${user.firstName}" id="nameDelete"
+                                   class="form-control" placeholder="Disabled input"/>
+                        </div>
+                        <br/>
+                        <div class="mb-3">
+                            <label for="surnameDelete">Last name: </label><br>
+                            <input type="text" name="lastName" th:value="${user.lastName}" id="surnameDelete"
+                                   class="form-control" placeholder="Disabled input"/>
+                        </div>
+                        <br/>
+                        <div class="mb-3">
+                            <label for="ageDelete">Age: </label>
+                            <input type="text" name="age" th:value="${user.age}" id="ageDelete"
+                                   class="form-control" placeholder="Disabled input"/>
+                            <br/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailDelete">Email: </label>
+                            <input type="text" name="username" th:value="${user.username}" id="emailDelete"
+                                   class="form-control" placeholder="Disabled input"/>
+                            <br/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordDelete">Password: </label>
+                            <input type="text" name="password" th:value="${user.password}" id="passwordDelete"
+                                   class="form-control" placeholder="Disabled input"/>
+                            <br/>
+                        </div>
+                        <select multiple class="form-control form-control-sm mb-3" id="roles" name="roles" size="2"
+                                required>
+                            <option th:each="role : ${user.roles}" th:value="${role.id}" th:selected="${user.roles}">
+                                [[${user.roles}]]
+                            </option>
+                        </select>
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div th:fragment="edit(u)" class="modal fade" th:id="${'editModal' + u.id}"
+     th:aria-labelledby="${'editModalLabel' + u.id}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" th:id="${'editModalLabel' + u.id}">Edit user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:method="POST" th:action="@{/admin/{id}(id=${u.id})}">
+                    <fieldset disabled>
+                        <div class="mb-3">
+                            <label for="idEdit">ID: </label> <br>
+                            <input type="text" name="id" th:value="${u.id}" id="idEdit"
+                                   class="form-control" placeholder="Disabled input"/>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <label for="nameEdit">First name: </label><br>
+                        <input type="text" name="name" th:value="${u.firstName}" id="nameEdit"
+                               class="form-control"/>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="surnameEdit">Last name: </label><br>
+                        <input type="text" name="lastName" th:value="${u.lastName}" id="surnameEdit"
+                               class="form-control"/>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="ageEdit">Age: </label>
+                        <input type="number" name="age" th:value="${u.age}" id="ageEdit"
+                               class="form-control"/>
+                        <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailEdit">Email: </label>
+                        <input type="text" name="email" th:value="${u.username}" id="emailEdit"
+                               class="form-control"/>
+                        <br/>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordEdit">Password: </label>
+                        <input type="text" name="password" th:value="${u.password}" id="passwordEdit"
+                               class="form-control"/>
+                        <br/>
+                    </div>
+                    <select multiple class="form-control form-control-sm"
+                            id="roles2" name="roles" size="2" required>
+                        <option th:each="role: ${u.roles}" th:value="${role.id}" th:selected="${u.roles}">
+                            [[${role}]]
+                        </option>
+                    </select>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
