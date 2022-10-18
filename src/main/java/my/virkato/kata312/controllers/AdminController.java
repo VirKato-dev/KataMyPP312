@@ -1,6 +1,5 @@
 package my.virkato.kata312.controllers;
 
-import my.virkato.kata312.entities.RoleEntity;
 import my.virkato.kata312.entities.UserEntity;
 import my.virkato.kata312.services.RoleService;
 import my.virkato.kata312.services.UserService;
@@ -11,9 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 @Controller
 @RequestMapping("/admin")
@@ -76,7 +72,7 @@ public class AdminController {
     public String index(Model model, Principal principal) {
         model.addAttribute("roles", roleService.getAvailableRoles());
         model.addAttribute("users", userService.getList());
-//        model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
+        model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
         return "pages/admin";
     }
 
