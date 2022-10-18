@@ -1,10 +1,12 @@
 package my.virkato.kata312.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -12,9 +14,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.StringJoiner;
 
-
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "email"}))
@@ -28,7 +30,7 @@ public class UserEntity implements UserDetails {
     private String password;
     private String firstName;
     private String lastName;
-    private int age;
+    private Integer age;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

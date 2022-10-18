@@ -1,5 +1,6 @@
 package my.virkato.kata312.controllers;
 
+import my.virkato.kata312.entities.RoleEntity;
 import my.virkato.kata312.entities.UserEntity;
 import my.virkato.kata312.services.RoleService;
 import my.virkato.kata312.services.UserService;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 @Controller
@@ -19,6 +22,15 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+
+    /***
+     * Объект для возвращения данных из формы (Thymeleaf) в контроллер
+     * @return возвращает новый экземпляр в Thymeleaf для заполнения данными
+     */
+    @ModelAttribute(name = "newUser")
+    public UserEntity newUser() {
+        return new UserEntity();
+    }
 
     public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
@@ -45,11 +57,10 @@ public class AdminController {
      * Сохранить в базу
      */
     @PostMapping
-    public String create(@ModelAttribute("user") UserEntity user) {
-        user.setRoles(Collections.singleton(roleService.createRole("USER")));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (userService.loadUserByUsername(user.getUsername()) == null) {
-            userService.createOrUpdate(user);
+    public String create(@ModelAttribute("newUser") UserEntity newUser, Model model) {
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        if (userService.loadUserByUsername(newUser.getUsername()) == null) {
+            userService.createOrUpdate(newUser);
             return "redirect:/admin";
         } else {
             return "redirect:/admin/new?error=login is exists";
@@ -59,12 +70,13 @@ public class AdminController {
     //--- READ
 
     /***
-     * Получить всех пользователей
+     * Получить всех пользователей и все известные роли
      */
     @GetMapping
     public String index(Model model, Principal principal) {
+        model.addAttribute("roles", roleService.getAvailableRoles());
         model.addAttribute("users", userService.getList());
-        model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
+//        model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
         return "pages/admin";
     }
 

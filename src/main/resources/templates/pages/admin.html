@@ -11,7 +11,7 @@
 <div class="container-fluid">
     <div class="row">
         <nav class="navbar fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <p class="navbar-brand col-3 ms-2 mb-0 text-light" th:text="${user.username}"></p>
+            <p class="navbar-brand col-3 ms-2 mb-0 text-light" th:text="${principal.username}"></p>
             <ul class="navbar-nav px-3">
                 <li class="text-nowrap">
                     <a class="nav-link text-secondary" href="/logout">Выйти</a>
@@ -21,45 +21,67 @@
 
         <div class="d-md-flex d-sm-block align-items-start mt-5">
             <div class="nav flex-md-column flex-sm-row nav-pills me-3" id="v-pills-tab" role="tablist">
-                <button class="nav-link active" id="v-pills-admin-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-admin"
+                <button sec:authorize="hasRole('ADMIN')" class="nav-link active" id="v-pills-admin-tab"
+                        data-bs-toggle="pill" data-bs-target="#v-pills-admin"
                         type="button" role="tab" aria-controls="v-pills-admin" aria-selected="true">
                     Админ
                 </button>
-                <button class="nav-link" id="v-pills-new-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-new"
+                <button sec:authorize="hasRole('USER') or hasRole('ADMIN')" class="nav-link" id="v-pills-new-tab"
+                        data-bs-toggle="pill" data-bs-target="#v-pills-new"
                         type="button" role="tab" aria-controls="v-pills-new" aria-selected="false">
                     Пользователь
                 </button>
             </div>
             <div class="tab-content mt-3 mt-md-0 w-100" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
-                     aria-labelledby="v-pills-admin-tab"
-                     tabindex="0">
+                     aria-labelledby="v-pills-admin-tab" tabindex="0">
                     <h1>Панель администрирования</h1>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-list-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-list"
+                            <button class="nav-link active" id="nav-list-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-list"
                                     type="button" role="tab" aria-controls="nav-list" aria-selected="true">
-                                Список пользователей
+                                Таблица пользователей
                             </button>
-                            <button class="nav-link" id="nav-new-tab" data-bs-toggle="tab" data-bs-target="#nav-new"
+                            <button class="nav-link" id="nav-new-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-new"
                                     type="button" role="tab" aria-controls="nav-new" aria-selected="false">
-                                Добавить нового пользователя
+                                Новый пользователь
                             </button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-list" role="tabpanel"
                              aria-labelledby="nav-list-tab" tabindex="0">
-                            <h3>Список пользователей</h3>
+                            <h3>Все пользователи</h3>
                             <th:block th:insert="fragments/all_users :: allUsers(${users})"/>
                         </div>
                         <div class="tab-pane fade" id="nav-new" role="tabpanel"
                              aria-labelledby="nav-new-tab" tabindex="0">
                             <h3>Добавить нового пользователя</h3>
-
+                            <form th:method="post" th:action="@{/admin}" th:object="${newUser}">
+                                <label for="fn" class="form-label font-weight-bold">Имя:</label>
+                                <input id="fn" class="form-control" type="text" th:field="*{firstName}">
+                                <br>
+                                <label for="ln" class="form-label font-weight-bold">Фамилия:</label>
+                                <input id="ln" class="form-control" type="text" th:field="*{lastName}">
+                                <br>
+                                <label for="age" class="form-label font-weight-bold">Возраст:</label>
+                                <input id="age" class="form-control" type="number" th:field="*{age}">
+                                <br>
+                                <label for="mail" class="form-label font-weight-bold">Эл.почта:</label>
+                                <input id="mail" class="form-control" type="email" th:field="*{username}">
+                                <br>
+                                <label for="pw" class="form-label font-weight-bold">Пароль:</label>
+                                <input id="pw" class="form-control" type="password" th:field="*{password}">
+                                <br>
+                                <label for="role" class="form-label font-weight-bold">Пароль:</label>
+                                <select id="role" class="form-select" size=2 multiple th:field="*{roles}">
+                                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role}"/>
+                                </select>
+                                <br>
+                                <input class="btn btn-primary" type="submit" value="Добавить нового пользователя">
+                            </form>
                         </div>
                     </div>
                 </div>

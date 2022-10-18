@@ -4,6 +4,11 @@ import my.virkato.kata312.entities.RoleEntity;
 import my.virkato.kata312.repositories.RoleDao;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class RoleService {
 
@@ -22,5 +27,11 @@ public class RoleService {
             entity = dao.save(new RoleEntity(role));
         }
         return entity;
+    }
+
+    public ArrayList<RoleEntity> getAvailableRoles() {
+        ArrayList<RoleEntity> roles = new ArrayList<>();
+        dao.findAll().forEach(roles::add);
+        return roles;
     }
 }
