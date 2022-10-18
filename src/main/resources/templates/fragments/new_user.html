@@ -6,27 +6,21 @@
     <title>Новый пользователь</title>
 </head>
 <body>
-<form th:fragment="newUser" th:method="post" th:action="@{/admin}" th:object="${newUser}">
-    <label for="fn" class="form-label font-weight-bold">Имя:</label>
+<form th:fragment="newUser()" th:method="post" th:action="@{/admin}" th:object="${newUser}">
+    <label for="fn" class="form-label">Имя:</label>
     <input id="fn" class="form-control" type="text" th:field="*{firstName}">
-    <br>
     <label for="ln" class="form-label font-weight-bold">Фамилия:</label>
     <input id="ln" class="form-control" type="text" th:field="*{lastName}">
-    <br>
     <label for="age" class="form-label font-weight-bold">Возраст:</label>
     <input id="age" class="form-control" type="number" th:field="*{age}">
-    <br>
     <label for="mail" class="form-label font-weight-bold">Эл.почта:</label>
     <input id="mail" class="form-control" type="email" th:field="*{username}">
-    <br>
     <label for="pw" class="form-label font-weight-bold">Пароль:</label>
     <input id="pw" class="form-control" type="password" th:field="*{password}">
-    <br>
     <label for="role" class="form-label font-weight-bold">Пароль:</label>
-    <select id="role" class="form-select" type="" th:field="*{roles}" multiple>
-        <option th:each="role, it : ${roles}" th:value="${it}" th:text="${role}"/>
+    <select id="role" class="form-select" size=2 multiple th:field="*{roles}">
+        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role}"/>
     </select>
-    <br>
     <input class="btn btn-primary" type="submit" value="Добавить нового пользователя">
 </form>
 
