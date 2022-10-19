@@ -25,11 +25,6 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping(params = "logout")
-    public String logout() {
-        return "redirect:/logout";
-    }
-
     //--- CREATE
 
     /***

@@ -20,56 +20,67 @@
         </nav>
 
         <div class="d-grid d-md-flex align-items-start m-0 p-0 mt-5">
+
             <div class="nav flex-row flex-md-column nav-pills mx-3 bg-white" id="v-pills-tab" role="tablist">
+
                 <button sec:authorize="hasRole('ADMIN')" class="nav-link active text-start"
                         id="v-pills-admin-tab" data-bs-toggle="pill" data-bs-target="#v-pills-admin"
                         type="button" role="tab" aria-controls="v-pills-admin" aria-selected="true">
                     Админ
                 </button>
-                <button sec:authorize="hasRole('USER') or hasRole('ADMIN')" class="nav-link text-start"
-                        id="v-pills-new-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new"
-                        type="button" role="tab" aria-controls="v-pills-new" aria-selected="false">
+
+                <a sec:authorize="hasRole('USER') or hasRole('ADMIN')" class="nav-link text-start"
+                        th:href="@{/user}"
+                        type="button" role="tab" aria-controls="v-pills-user" aria-selected="false">
                     Пользователь
-                </button>
+                </a>
+
             </div>
+
             <div class="tab-content col p-3 pt-md-0 bg-light" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
                      aria-labelledby="v-pills-admin-tab" tabindex="0">
+
                     <h1>Панель администрирования</h1>
+
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
                             <button class="nav-link active" id="nav-list-tab"
                                     data-bs-toggle="tab" data-bs-target="#nav-list"
                                     type="button" role="tab" aria-controls="nav-list" aria-selected="true">
                                 Таблица пользователей
                             </button>
+
                             <button class="nav-link" id="nav-new-tab"
                                     data-bs-toggle="tab" data-bs-target="#nav-new"
                                     type="button" role="tab" aria-controls="nav-new" aria-selected="false">
                                 Новый пользователь
                             </button>
+
                         </div>
                     </nav>
+
                     <div class="tab-content" id="nav-tabContent">
+
                         <div class="tab-pane fade show active" id="nav-list" role="tabpanel"
                              aria-labelledby="nav-list-tab" tabindex="0">
                             <div class="text-bg-light border px-3"><h3>Все пользователи</h3></div>
                             <div class="col px-3 bg-white border"
                                  th:insert="fragments/all_users :: allUsers(${users})"></div>
                         </div>
+
                         <div class="tab-pane fade" id="nav-new" role="tabpanel"
                              aria-labelledby="nav-new-tab" tabindex="0">
                             <div class="text-bg-light border px-3"><h3>Добавить нового пользователя</h3></div>
                             <div class="col px-3 bg-white border"
                                  th:insert="fragments/new_user :: newUser(newUser = ${newUser})"></div>
                         </div>
+
                     </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-new" role="tabpanel"
-                     aria-labelledby="v-pills-new-tab" tabindex="0">
-                    <h1>Информация о пользователе</h1>
-                </div>
             </div>
+
         </div>
     </div>
 </div>
