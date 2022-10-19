@@ -6,7 +6,7 @@
     <title>Все пользователи</title>
 </head>
 <body>
-<table th:fragment="allUsers(users)" class="table table-striped table-sm">
+<table th:fragment="allUsers(users)" class="table table-striped table-sm p-3">
     <thead>
     <tr>
         <th>ID</th>
@@ -31,7 +31,7 @@
         <td class="col-sm-2 col-xl-1 text-nowrap" th:text="${u.rolesAsText()}"></td>
         <td class="col-1" th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}"
             sec:authorize="hasRole('ADMIN')">
-            <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+            <a type="button" class="btn btn-sm btn-info text-light" data-bs-toggle="modal"
                th:data-bs-target="${'#editModal'+u.id}">Edit</a>
         </td>
         <td class="col-1" th:if="${#httpServletRequest.getRequestURI().endsWith('/admin')}"

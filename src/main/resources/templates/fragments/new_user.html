@@ -7,21 +7,25 @@
 </head>
 <body>
 <form th:fragment="newUser()" th:method="post" th:action="@{/admin}" th:object="${newUser}">
-    <label for="fn" class="form-label">Имя:</label>
-    <input id="fn" class="form-control" type="text" th:field="*{firstName}">
-    <label for="ln" class="form-label font-weight-bold">Фамилия:</label>
-    <input id="ln" class="form-control" type="text" th:field="*{lastName}">
-    <label for="age" class="form-label font-weight-bold">Возраст:</label>
-    <input id="age" class="form-control" type="number" th:field="*{age}">
-    <label for="mail" class="form-label font-weight-bold">Эл.почта:</label>
-    <input id="mail" class="form-control" type="email" th:field="*{username}">
-    <label for="pw" class="form-label font-weight-bold">Пароль:</label>
-    <input id="pw" class="form-control" type="password" th:field="*{password}">
-    <label for="role" class="form-label font-weight-bold">Пароль:</label>
-    <select id="role" class="form-select" size=2 multiple th:field="*{roles}">
-        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role}"/>
-    </select>
-    <input class="btn btn-primary" type="submit" value="Добавить нового пользователя">
+    <div class="form-label col-lg-5 col-sm-6 col-auto mx-auto row justify-content-center">
+        <label for="fn" class="form-label text-center fw-bold">Имя:</label>
+        <input id="fn" class="form-control mb-3" type="text" th:field="*{firstName}">
+        <label for="ln" class="form-label text-center fw-bold">Фамилия:</label>
+        <input id="ln" class="form-control mb-3" type="text" th:field="*{lastName}">
+        <label for="age" class="form-label text-center fw-bold">Возраст:</label>
+        <input id="age" class="form-control mb-3" type="number" th:field="*{age}">
+        <label for="mail" class="form-label text-center fw-bold">Эл.почта:</label>
+        <input id="mail" class="form-control mb-3" type="email" th:field="*{username}">
+        <label for="pw" class="form-label text-center fw-bold">Пароль:</label>
+        <input id="pw" class="form-control mb-3" type="password" th:field="*{password}">
+        <label for="role" class="form-label text-center fw-bold">Роли:</label>
+        <select id="role" class="form-select mb-3" size=2 multiple th:field="*{roles}">
+            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role}"/>
+        </select>
+        <div class="col-auto mx-auto row justify-content-center">
+            <input type="submit" class="btn btn-success" value="Добавить нового пользователя">
+        </div>
+    </div>
 </form>
 
 </body>

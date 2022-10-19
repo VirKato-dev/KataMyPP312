@@ -19,20 +19,20 @@
             </ul>
         </nav>
 
-        <div class="d-md-flex d-sm-block align-items-start mt-5">
-            <div class="nav flex-md-column flex-sm-row nav-pills me-3" id="v-pills-tab" role="tablist">
-                <button sec:authorize="hasRole('ADMIN')" class="nav-link active" id="v-pills-admin-tab"
-                        data-bs-toggle="pill" data-bs-target="#v-pills-admin"
+        <div class="d-grid d-md-flex align-items-start m-0 p-0 mt-5">
+            <div class="nav flex-row flex-md-column nav-pills mx-3 bg-white" id="v-pills-tab" role="tablist">
+                <button sec:authorize="hasRole('ADMIN')" class="nav-link active text-start"
+                        id="v-pills-admin-tab" data-bs-toggle="pill" data-bs-target="#v-pills-admin"
                         type="button" role="tab" aria-controls="v-pills-admin" aria-selected="true">
                     Админ
                 </button>
-                <button sec:authorize="hasRole('USER') or hasRole('ADMIN')" class="nav-link" id="v-pills-new-tab"
-                        data-bs-toggle="pill" data-bs-target="#v-pills-new"
+                <button sec:authorize="hasRole('USER') or hasRole('ADMIN')" class="nav-link text-start"
+                        id="v-pills-new-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new"
                         type="button" role="tab" aria-controls="v-pills-new" aria-selected="false">
                     Пользователь
                 </button>
             </div>
-            <div class="tab-content mt-3 mt-md-0 w-100" id="v-pills-tabContent">
+            <div class="tab-content col p-3 pt-md-0 bg-light" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel"
                      aria-labelledby="v-pills-admin-tab" tabindex="0">
                     <h1>Панель администрирования</h1>
@@ -53,13 +53,15 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-list" role="tabpanel"
                              aria-labelledby="nav-list-tab" tabindex="0">
-                            <h3>Все пользователи</h3>
-                            <th:block th:insert="fragments/all_users :: allUsers(${users})"/>
+                            <div class="text-bg-light border px-3"><h3>Все пользователи</h3></div>
+                            <div class="col px-3 bg-white border"
+                                 th:insert="fragments/all_users :: allUsers(${users})"></div>
                         </div>
                         <div class="tab-pane fade" id="nav-new" role="tabpanel"
                              aria-labelledby="nav-new-tab" tabindex="0">
-                            <h3>Добавить нового пользователя</h3>
-                            <th:block th:insert="fragments/new_user :: newUser()"/>
+                            <div class="text-bg-light border px-3"><h3>Добавить нового пользователя</h3></div>
+                            <div class="col px-3 bg-white border"
+                                 th:insert="fragments/new_user :: newUser(newUser = ${newUser})"></div>
                         </div>
                     </div>
                 </div>
