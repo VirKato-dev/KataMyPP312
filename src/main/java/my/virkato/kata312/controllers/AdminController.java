@@ -61,14 +61,17 @@ public class AdminController {
      * Сохранить изменённого пользователя
      */
     @PatchMapping()
-    public String edit(@ModelAttribute("user") UserEntity user) {
-        UserEntity oldUser = userService.get(user.getId());
-        user.setUsername(oldUser.getUsername());
-        if (!oldUser.getPassword().equals(user.getPassword()) && !"".equals(user.getPassword())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        user.setRoles(oldUser.getRoles());
-        userService.createOrUpdate(user);
+    public String edit(@RequestParam(name = "id") Long id, @RequestParam(name = "username") String username) {
+//        UserEntity user = new UserEntity(model);
+//        UserEntity oldUser = userService.get(user.getId());
+//        user.setUsername(oldUser.getUsername());
+//        if (!oldUser.getPassword().equals(user.getPassword()) && !"".equals(user.getPassword())) {
+//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        } else {
+//            user.setPassword(oldUser.getPassword());
+//        }
+//        user.setRoles(oldUser.getRoles());
+//        userService.createOrUpdate(user);
         return "redirect:/admin";
     }
 

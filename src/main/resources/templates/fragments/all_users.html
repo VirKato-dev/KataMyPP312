@@ -41,6 +41,9 @@
             <a type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                data-bs-target="#deleteModal" th:data-bs-target="${'#deleteModal'+u.id}">Delete</a>
         </td>
+
+        <th:block th:insert="~{fragments/modal :: edit(u = ${u})}"></th:block>
+        <th:block th:insert="~{fragments/modal :: delete(u = ${u})}"></th:block>
     </tr>
     </tbody>
 </table>

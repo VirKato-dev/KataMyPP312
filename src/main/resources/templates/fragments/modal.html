@@ -7,63 +7,36 @@
 </head>
 <body>
 
-<div th:fragment="delete(user)" class="modal fade" th:id="${'DELETE'+user.id}" tabindex="-1"
+<div th:fragment="delete(u)" class="modal fade" th:id="${'deleteModal'+u.id}" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabelDelete">Edit user</h5>
+                <h5 class="modal-title" id="exampleModalLabelDelete">Delete user</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}">
-                    <fieldset disabled>
-                        <div class="mb-3">
-                            <label for="idDelete">ID: </label> <br>
-                            <input type="text" name="id" th:value="${user.id}" id="idDelete" class="form-control"
-                                   placeholder="Disabled input"/>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="nameDelete">First name: </label><br>
-                            <input type="text" name="firstName" th:value="${user.firstName}" id="nameDelete"
-                                   class="form-control" placeholder="Disabled input"/>
-                        </div>
-                        <br/>
-                        <div class="mb-3">
-                            <label for="surnameDelete">Last name: </label><br>
-                            <input type="text" name="lastName" th:value="${user.lastName}" id="surnameDelete"
-                                   class="form-control" placeholder="Disabled input"/>
-                        </div>
-                        <br/>
-                        <div class="mb-3">
-                            <label for="ageDelete">Age: </label>
-                            <input type="text" name="age" th:value="${user.age}" id="ageDelete"
-                                   class="form-control" placeholder="Disabled input"/>
-                            <br/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="emailDelete">Email: </label>
-                            <input type="text" name="username" th:value="${user.username}" id="emailDelete"
-                                   class="form-control" placeholder="Disabled input"/>
-                            <br/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="passwordDelete">Password: </label>
-                            <input type="text" name="password" th:value="${user.password}" id="passwordDelete"
-                                   class="form-control" placeholder="Disabled input"/>
-                            <br/>
-                        </div>
-                        <select multiple class="form-control form-control-sm mb-3" id="roles" name="roles" size="2"
-                                required>
-                            <option th:each="role : ${user.roles}" th:value="${role.id}" th:selected="${user.roles}">
-                                [[${user.roles}]]
-                            </option>
+                <form th:method="delete" th:action="@{/admin/{id}(id=${u.id})}">
+                    <div class="form-label col-sm-6 col-auto mx-auto row justify-content-center">
+                        <label for="did" class="form-label text-center fw-bold">ID:</label>
+                        <input id="did" disabled type="number" name="id" th:value="${u.id}" class="form-control mb-3"/>
+                        <label for="dfname" class="form-label text-center fw-bold">Имя:</label>
+                        <input id="dfname" disabled type="text" name="firstName" th:value="${u.firstName}" class="form-control mb-3"/>
+                        <label for="dsname" class="form-label text-center fw-bold">Фамилия:</label>
+                        <input id="dsname" disabled type="text" name="lastName" th:value="${u.lastName}"
+                               class="form-control mb-3"/>
+                        <label for="dage" class="form-label text-center fw-bold">Возраст:</label>
+                        <input id="dage" disabled type="number" name="age" th:value="${u.age}" class="form-control mb-3"/>
+                        <label for="demail" class="form-label text-center fw-bold">Email:</label>
+                        <input id="demail" disabled type="email" name="username" th:value="${u.username}" class="form-control mb-3"/>
+                        <label for="droles" class="form-label text-center fw-bold">Роли:</label>
+                        <select id="droles" disabled multiple class="form-control mb-3" name="roles" size="2">
+                            <option th:each="role: ${u.roles}" th:value="${role.id}" th:text="${role}"/>
                         </select>
-                    </fieldset>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <input type="submit" class="btn btn-danger" value="Delete">
                     </div>
                 </form>
             </div>
@@ -82,53 +55,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form th:method="POST" th:action="@{/admin/{id}(id=${u.id})}">
-                    <fieldset disabled>
-                        <div class="mb-3">
-                            <label for="idEdit">ID: </label> <br>
-                            <input type="text" name="id" th:value="${u.id}" id="idEdit"
-                                   class="form-control" placeholder="Disabled input"/>
-                        </div>
-                    </fieldset>
-                    <div class="form-group">
-                        <label for="nameEdit">First name: </label><br>
-                        <input type="text" name="name" th:value="${u.firstName}" id="nameEdit"
-                               class="form-control"/>
+                <form th:method="patch" th:action="@{/admin}">
+                    <div class="form-label col-sm-6 col-auto mx-auto row justify-content-center">
+                        <label for="iid" class="form-label text-center fw-bold">ID:</label>
+                        <input id="iid" disabled type="number" name="id" th:value="${u.id}" class="form-control mb-3"/>
+                        <label for="ifname" class="form-label text-center fw-bold">Имя:</label>
+                        <input id="ifname" type="text" name="firstName" th:value="${u.firstName}" class="form-control mb-3"/>
+                        <label for="isname" class="form-label text-center fw-bold">Фамилия:</label>
+                        <input id="isname" type="text" name="lastName" th:value="${u.lastName}"
+                               class="form-control mb-3"/>
+                        <label for="iage" class="form-label text-center fw-bold">Возраст:</label>
+                        <input id="iage" type="number" name="age" th:value="${u.age}" class="form-control mb-3"/>
+                        <label for="iemail" class="form-label text-center fw-bold">Email:</label>
+                        <input id="iemail" type="email" name="username" th:value="${u.username}" class="form-control mb-3"/>
+                        <label for="ipass" class="form-label text-center fw-bold">Пароль:</label>
+                        <input id="ipass" type="password" name="password" class="form-control mb-3"/>
+                        <label for="iroles" class="form-label text-center fw-bold">Роли:</label>
+                        <select id="iroles" multiple th:value="${u.roles}" class="form-control mb-3"
+                                name="roles" size="2" required>
+                            <option th:each="role: ${roles}" th:value="${role.id}" th:text="${role}"
+                                    th:attr="selected=${u.roles.contains(role)}"/>
+                        </select>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="surnameEdit">Last name: </label><br>
-                        <input type="text" name="lastName" th:value="${u.lastName}" id="surnameEdit"
-                               class="form-control"/>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="ageEdit">Age: </label>
-                        <input type="number" name="age" th:value="${u.age}" id="ageEdit"
-                               class="form-control"/>
-                        <br>
-                    </div>
-                    <div class="form-group">
-                        <label for="emailEdit">Email: </label>
-                        <input type="text" name="email" th:value="${u.username}" id="emailEdit"
-                               class="form-control"/>
-                        <br/>
-                    </div>
-                    <div class="form-group">
-                        <label for="passwordEdit">Password: </label>
-                        <input type="text" name="password" th:value="${u.password}" id="passwordEdit"
-                               class="form-control"/>
-                        <br/>
-                    </div>
-                    <select multiple class="form-control form-control-sm"
-                            id="roles2" name="roles" size="2" required>
-                        <option th:each="role: ${u.roles}" th:value="${role.id}" th:selected="${u.roles}">
-                            [[${role}]]
-                        </option>
-                    </select>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <input type="submit" class="btn btn-primary" value="Update">
                     </div>
                 </form>
             </div>
