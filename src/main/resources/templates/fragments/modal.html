@@ -16,28 +16,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="form-label col-sm-6 col-auto mx-auto row justify-content-center">
+                    <label for="did" class="form-label text-center fw-bold">ID:</label>
+                    <input id="did" disabled type="number" name="id" th:value="${u.id}" class="form-control mb-3"/>
+                    <label for="dfname" class="form-label text-center fw-bold">Имя:</label>
+                    <input id="dfname" disabled type="text" name="firstName" th:value="${u.firstName}"
+                           class="form-control mb-3"/>
+                    <label for="dsname" class="form-label text-center fw-bold">Фамилия:</label>
+                    <input id="dsname" disabled type="text" name="lastName" th:value="${u.lastName}"
+                           class="form-control mb-3"/>
+                    <label for="dage" class="form-label text-center fw-bold">Возраст:</label>
+                    <input id="dage" disabled type="number" name="age" th:value="${u.age}"
+                           class="form-control mb-3"/>
+                    <label for="demail" class="form-label text-center fw-bold">Email:</label>
+                    <input id="demail" disabled type="email" name="username" th:value="${u.username}"
+                           class="form-control mb-3"/>
+                    <label for="droles" class="form-label text-center fw-bold">Роли:</label>
+                    <select id="droles" disabled multiple class="form-control mb-3" name="roles" size="2">
+                        <option th:each="role: ${u.roles}" th:value="${role.id}" th:text="${role}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
                 <form th:method="delete" th:action="@{/admin/{id}(id=${u.id})}">
-                    <div class="form-label col-sm-6 col-auto mx-auto row justify-content-center">
-                        <label for="did" class="form-label text-center fw-bold">ID:</label>
-                        <input id="did" disabled type="number" name="id" th:value="${u.id}" class="form-control mb-3"/>
-                        <label for="dfname" class="form-label text-center fw-bold">Имя:</label>
-                        <input id="dfname" disabled type="text" name="firstName" th:value="${u.firstName}" class="form-control mb-3"/>
-                        <label for="dsname" class="form-label text-center fw-bold">Фамилия:</label>
-                        <input id="dsname" disabled type="text" name="lastName" th:value="${u.lastName}"
-                               class="form-control mb-3"/>
-                        <label for="dage" class="form-label text-center fw-bold">Возраст:</label>
-                        <input id="dage" disabled type="number" name="age" th:value="${u.age}" class="form-control mb-3"/>
-                        <label for="demail" class="form-label text-center fw-bold">Email:</label>
-                        <input id="demail" disabled type="email" name="username" th:value="${u.username}" class="form-control mb-3"/>
-                        <label for="droles" class="form-label text-center fw-bold">Роли:</label>
-                        <select id="droles" disabled multiple class="form-control mb-3" name="roles" size="2">
-                            <option th:each="role: ${u.roles}" th:value="${role.id}" th:text="${role}"/>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-danger" value="Delete">
-                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
             </div>
 
@@ -54,35 +57,41 @@
                 <h5 class="modal-title" th:id="${'editModalLabel' + u.id}">Edit user</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form th:method="patch" th:action="@{/admin}">
+            <form th:method="patch" th:action="@{/admin}">
+                <div class="modal-body">
                     <div class="form-label col-sm-6 col-auto mx-auto row justify-content-center">
                         <label for="iid" class="form-label text-center fw-bold">ID:</label>
-                        <input id="iid" disabled type="number" name="id" th:value="${u.id}" class="form-control mb-3"/>
+                        <input id="iid" disabled type="number" th:value="${u.id}"
+                               class="form-control mb-3"/>
+                        <input type="hidden" name="id" th:value="${u.id}">
                         <label for="ifname" class="form-label text-center fw-bold">Имя:</label>
-                        <input id="ifname" type="text" name="firstName" th:value="${u.firstName}" class="form-control mb-3"/>
+                        <input id="ifname" type="text" name="firstName" th:value="${u.firstName}"
+                               class="form-control mb-3"/>
                         <label for="isname" class="form-label text-center fw-bold">Фамилия:</label>
                         <input id="isname" type="text" name="lastName" th:value="${u.lastName}"
                                class="form-control mb-3"/>
                         <label for="iage" class="form-label text-center fw-bold">Возраст:</label>
-                        <input id="iage" type="number" name="age" th:value="${u.age}" class="form-control mb-3"/>
+                        <input id="iage" type="number" name="age" th:value="${u.age}"
+                               class="form-control mb-3"/>
                         <label for="iemail" class="form-label text-center fw-bold">Email:</label>
-                        <input id="iemail" type="email" name="username" th:value="${u.username}" class="form-control mb-3"/>
+                        <input id="iemail" type="email" name="username" th:value="${u.username}" required
+                               class="form-control mb-3"/>
                         <label for="ipass" class="form-label text-center fw-bold">Пароль:</label>
-                        <input id="ipass" type="password" name="password" class="form-control mb-3"/>
+                        <input id="ipass" type="password" name="password"
+                               class="form-control mb-3"/>
                         <label for="iroles" class="form-label text-center fw-bold">Роли:</label>
-                        <select id="iroles" multiple th:value="${u.roles}" class="form-control mb-3"
-                                name="roles" size="2" required>
+                        <select id="iroles" multiple th:value="${u.roles}" name="roles" size="2"
+                                class="form-control mb-3">
                             <option th:each="role: ${roles}" th:value="${role.id}" th:text="${role}"
                                     th:attr="selected=${u.roles.contains(role)}"/>
                         </select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Update">
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Update">
+                </div>
+            </form>
 
         </div>
     </div>

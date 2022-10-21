@@ -7,7 +7,7 @@
 </head>
 <body>
 <form th:fragment="newUser()" th:method="post" th:action="@{/admin}" th:object="${newUser}">
-    <div class="form-label col-lg-5 col-sm-6 col-auto mx-auto row justify-content-center">
+    <div class="form-label col-lg-5 col-sm-6 col-auto mx-auto row justify-content-center p-3">
         <label for="fn" class="form-label text-center fw-bold">Имя:</label>
         <input id="fn" class="form-control mb-3" type="text" th:field="*{firstName}">
         <label for="ln" class="form-label text-center fw-bold">Фамилия:</label>
