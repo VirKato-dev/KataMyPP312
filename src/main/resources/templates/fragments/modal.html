@@ -17,22 +17,22 @@
             </div>
             <div class="modal-body">
                 <div class="form-label col-sm-6 col-auto mx-auto row justify-content-center">
-                    <label for="did" class="form-label text-center fw-bold">ID:</label>
-                    <input id="did" disabled type="number" name="id" th:value="${u.id}" class="form-control mb-3"/>
-                    <label for="dfname" class="form-label text-center fw-bold">Имя:</label>
-                    <input id="dfname" disabled type="text" name="firstName" th:value="${u.firstName}"
+                    <p class="form-label text-center fw-bold">ID:</p>
+                    <input disabled type="text" name="id" th:value="${u.id}" class="form-control mb-3"/>
+                    <p class="form-label text-center fw-bold">Имя:</p>
+                    <input disabled type="text" name="firstName" th:value="${u.firstName}"
                            class="form-control mb-3"/>
-                    <label for="dsname" class="form-label text-center fw-bold">Фамилия:</label>
-                    <input id="dsname" disabled type="text" name="lastName" th:value="${u.lastName}"
+                    <p class="form-label text-center fw-bold">Фамилия:</p>
+                    <input disabled type="text" name="lastName" th:value="${u.lastName}"
                            class="form-control mb-3"/>
-                    <label for="dage" class="form-label text-center fw-bold">Возраст:</label>
-                    <input id="dage" disabled type="number" name="age" th:value="${u.age}"
+                    <p class="form-label text-center fw-bold">Возраст:</p>
+                    <input disabled type="number" name="age" th:value="${u.age}"
                            class="form-control mb-3"/>
-                    <label for="demail" class="form-label text-center fw-bold">Email:</label>
-                    <input id="demail" disabled type="email" name="username" th:value="${u.username}"
+                    <p class="form-label text-center fw-bold">Email:</p>
+                    <input disabled type="email" name="username" th:value="${u.username}"
                            class="form-control mb-3"/>
-                    <label for="droles" class="form-label text-center fw-bold">Роли:</label>
-                    <select id="droles" disabled multiple class="form-control mb-3" name="roles" size="2">
+                    <p class="form-label text-center fw-bold">Роли:</p>
+                    <select disabled multiple class="form-control mb-3" name="roles" size="2">
                         <option th:each="role: ${u.roles}" th:value="${role.id}" th:text="${role}"/>
                     </select>
                 </div>
@@ -60,27 +60,27 @@
             <form th:method="patch" th:action="@{/admin}">
                 <div class="modal-body">
                     <div class="form-label col-sm-6 col-auto mx-auto row justify-content-center">
-                        <label for="iid" class="form-label text-center fw-bold">ID:</label>
-                        <input id="iid" disabled type="number" th:value="${u.id}"
+                        <label class="form-label text-center fw-bold">ID:</label>
+                        <input disabled type="number" th:value="${u.id}"
                                class="form-control mb-3"/>
                         <input type="hidden" name="id" th:value="${u.id}">
-                        <label for="ifname" class="form-label text-center fw-bold">Имя:</label>
-                        <input id="ifname" type="text" name="firstName" th:value="${u.firstName}"
+                        <label th:for="'ifname' + ${u.id}" class="form-label text-center fw-bold">Имя:</label>
+                        <input th:id="'ifname' + ${u.id}" type="text" name="firstName" th:value="${u.firstName}"
                                class="form-control mb-3"/>
-                        <label for="isname" class="form-label text-center fw-bold">Фамилия:</label>
-                        <input id="isname" type="text" name="lastName" th:value="${u.lastName}"
+                        <label th:for="'isname' + ${u.id}" class="form-label text-center fw-bold">Фамилия:</label>
+                        <input th:id="'isname' + ${u.id}" type="text" name="lastName" th:value="${u.lastName}"
                                class="form-control mb-3"/>
-                        <label for="iage" class="form-label text-center fw-bold">Возраст:</label>
-                        <input id="iage" type="number" name="age" th:value="${u.age}"
+                        <label th:for="'iage' + ${u.id}" class="form-label text-center fw-bold">Возраст:</label>
+                        <input th:id="'iage' + ${u.id}" type="number" name="age" th:value="${u.age}"
                                class="form-control mb-3"/>
-                        <label for="iemail" class="form-label text-center fw-bold">Email:</label>
-                        <input id="iemail" type="email" name="username" th:value="${u.username}" required
+                        <label th:for="'iemail' + ${u.id}" class="form-label text-center fw-bold">Email:</label>
+                        <input th:id="'iemail' + ${u.id}" type="email" name="username" th:value="${u.username}" required
                                class="form-control mb-3"/>
-                        <label for="ipass" class="form-label text-center fw-bold">Пароль:</label>
-                        <input id="ipass" type="password" name="password"
+                        <label th:for="'ipass' + ${u.id}" class="form-label text-center fw-bold">Пароль:</label>
+                        <input th:id="'ipass' + ${u.id}" type="password" name="password"
                                class="form-control mb-3"/>
-                        <label for="iroles" class="form-label text-center fw-bold">Роли:</label>
-                        <select id="iroles" multiple th:value="${u.roles}" name="roles" size="2"
+                        <label th:for="'iroles' + ${u.id}" class="form-label text-center fw-bold">Роли:</label>
+                        <select th:id="'iroles' + ${u.id}" multiple th:value="${u.roles}" name="roles" size="2"
                                 class="form-control mb-3">
                             <option th:each="role: ${roles}" th:value="${role.id}" th:text="${role}"
                                     th:attr="selected=${u.roles.contains(role)}"/>
