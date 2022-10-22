@@ -4,6 +4,7 @@ import my.virkato.kata312.entities.UserEntity;
 import my.virkato.kata312.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -28,8 +29,13 @@ public class UserRestControllers {
 
     // READ
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<UserEntity> get(@PathVariable("id") Long id) {
+    @GetMapping("/user")
+    public ResponseEntity<UserEntity> get(Authentication auth) {
+        return new ResponseEntity<>(userService.loadUserByUsername(auth.getName()), HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/{id}")
+    public ResponseEntity<UserEntity> get(@PathVariable Long id) {
         return new ResponseEntity<>(userService.get(id), HttpStatus.OK);
     }
 
@@ -47,7 +53,7 @@ public class UserRestControllers {
 
     // DELETE
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.ok().build();

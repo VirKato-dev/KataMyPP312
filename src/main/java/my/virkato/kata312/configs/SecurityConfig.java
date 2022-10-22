@@ -21,9 +21,9 @@ public class SecurityConfig {
         return http
                 .csrf().disable() //лучше отключить пока
                 .authorizeHttpRequests(req -> req
-                        .antMatchers("/", "/register", "/roles").permitAll()
+                        .antMatchers("/", "/register").permitAll()
                         .antMatchers("/admin/**").hasRole("ADMIN")
-                        .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(req -> req
