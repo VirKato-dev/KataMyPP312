@@ -1,17 +1,16 @@
 package my.virkato.kata312.controllers;
 
 import my.virkato.kata312.entities.RoleEntity;
-import my.virkato.kata312.entities.UserEntity;
 import my.virkato.kata312.services.RoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
 
 @RestController
-@RequestMapping("/roles")
 public class RoleRestControllers {
 
     private final RoleService roleService;
@@ -20,19 +19,14 @@ public class RoleRestControllers {
         this.roleService = roleService;
     }
 
-    // CREATE
-
-    @PostMapping
-    public ResponseEntity<RoleEntity> create(@RequestBody RoleEntity role) {
-        return new ResponseEntity<>(roleService.create(role.toString()), HttpStatus.OK);
-    }
-
     // READ
 
-    @GetMapping("/all")
+    @GetMapping("/roles")
     public ResponseEntity<Collection<RoleEntity>> getAll() {
         return new ResponseEntity<>(roleService.getAll(), HttpStatus.OK);
     }
+
+    // CREATE
 
     // UPDATE
 
