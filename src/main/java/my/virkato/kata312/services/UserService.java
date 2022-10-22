@@ -23,30 +23,35 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repo.findUserEntityByUsername(username);
-    }
+    // CREATE
+    // UPDATE
 
+    /***
+     * Создать или обновить данные о пользователе
+     * @param user новые данные
+     * @return обновлённый/созданный пользователь
+     */
     @Transactional
-    public void createOrUpdate(UserEntity user) {
+    public UserEntity createOrUpdate(UserEntity user) {
         if (user.getId() != null) {
             UserEntity oldUser = get(user.getId());
             user.setUsername(oldUser.getUsername());
-            if (oldUser.getPassword().equals(user.getPassword()) ||
-                    "".equals(user.getPassword())) {
+            if (oldUser.getPassword().equals(user.getPassword())
+                    || "".equals(user.getPassword())) {
                 user.setPassword(oldUser.getPassword());
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        repo.save(user);
+        return repo.save(user);
     }
+
+    // READ
 
     /***
      * Получить всех пользователей
      * @return список
      */
-    public Collection<UserEntity> getList() {
+    public Collection<UserEntity> getAll() {
         ArrayList<UserEntity> list = new ArrayList<>();
         repo.findAll().forEach(list::add);
         return list;
@@ -54,13 +59,30 @@ public class UserService implements UserDetailsService {
 
     /***
      * Получить пользователя по ID
-     * @param id ID пользователя
+     * @param id идентификатор пользователя в базе
      * @return пользователь либо null
      */
     public UserEntity get(Long id) {
         return repo.findById(id).orElse(null);
     }
 
+    /***
+     * Получить пользователя по его логину
+     * @param username the username identifying the user whose data is required.
+     * @return пользователь либо null
+     * @throws UsernameNotFoundException
+     */
+    @Override
+    public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repo.findUserEntityByUsername(username);
+    }
+
+    // DELETE
+
+    /***
+     * Удалить по ID
+     * @param id идентификатор пользователя в базе
+     */
     public void delete(Long id) {
         repo.deleteById(id);
     }

@@ -6,13 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.StringJoiner;
+import java.util.*;
 
 @Entity
 @NoArgsConstructor
@@ -65,6 +61,27 @@ public class UserEntity implements UserDetails {
         return true;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity that)) return false;
+        return username.equals(that.username)
+                && password.equals(that.password)
+                && Objects.equals(firstName, that.firstName)
+                && Objects.equals(lastName, that.lastName)
+                && Objects.equals(age, that.age)
+                && roles.equals(that.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, firstName, lastName, age, roles);
+    }
+
+    /***
+     * Используется в формировании HTML-таблицы с помощью Thymeleaf
+     * @return строка с названиями ролей через пробел
+     */
     public String rolesAsText() {
         StringJoiner str = new StringJoiner(" ");
         getAuthorities().forEach(s -> str.add(s.toString()));

@@ -48,8 +48,8 @@ public class AdminController {
      */
     @GetMapping
     public String index(Model model, Principal principal) {
-        model.addAttribute("roles", roleService.getAvailableRoles());
-        model.addAttribute("users", userService.getList());
+        model.addAttribute("roles", roleService.getAll());
+        model.addAttribute("users", userService.getAll());
         model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
         model.addAttribute("newUser", new UserEntity());
         return "pages/admin";

@@ -23,20 +23,19 @@ public class UserRestControllers {
 
     @PostMapping
     public ResponseEntity<UserEntity> create(@RequestBody UserEntity user) {
-        userService.createOrUpdate(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(userService.createOrUpdate(user), HttpStatus.OK);
     }
 
     // READ
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> getUser(@PathVariable("id") Long id) {
+    public ResponseEntity<UserEntity> get(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.get(id), HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Collection<UserEntity>> getAllUsers() {
-        return new ResponseEntity<>(userService.getList(), HttpStatus.OK);
+    public ResponseEntity<Collection<UserEntity>> getAll() {
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
     // UPDATE

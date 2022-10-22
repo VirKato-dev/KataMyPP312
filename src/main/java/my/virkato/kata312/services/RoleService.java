@@ -16,8 +16,15 @@ public class RoleService {
         repo = roleRepo;
     }
 
+    // CREATE
+
+    /***
+     * Создать роль если её ещё нет в базе
+     * @param role название роли
+     * @return роль сохранённая в базе
+     */
     @Transactional
-    public RoleEntity createRole(String role) {
+    public RoleEntity create(String role) {
         if (!role.startsWith("ROLE_")) {
             role = "ROLE_" + role;
         }
@@ -28,9 +35,19 @@ public class RoleService {
         return entity;
     }
 
-    public ArrayList<RoleEntity> getAvailableRoles() {
+    // READ
+
+    /***
+     * Получить все известные роли
+     * @return список всех ролей в базе
+     */
+    public ArrayList<RoleEntity> getAll() {
         ArrayList<RoleEntity> roles = new ArrayList<>();
         repo.findAll().forEach(roles::add);
         return roles;
     }
+
+    // UPDATE
+    // DELETE
+
 }

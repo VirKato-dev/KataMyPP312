@@ -32,8 +32,8 @@ public class Kata312Application {
     @PostConstruct
     private void init() {
         Set<RoleEntity> roles = new HashSet<>();
-        roles.add(roleService.createRole("ADMIN"));
-        roles.add(roleService.createRole("USER"));
+        roles.add(roleService.create("ADMIN"));
+        roles.add(roleService.create("USER"));
 
         UserEntity user = new UserEntity();
         if (userService.loadUserByUsername("my@mail.ru") == null) {
@@ -47,7 +47,7 @@ public class Kata312Application {
         }
 
         roles.clear();
-        roles.add(roleService.createRole("USER"));
+        roles.add(roleService.create("USER"));
 
         user = new UserEntity();
         if (userService.loadUserByUsername("user@mail.ru") == null) {
