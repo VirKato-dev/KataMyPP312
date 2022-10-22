@@ -4,10 +4,8 @@ import my.virkato.kata312.entities.RoleEntity;
 import my.virkato.kata312.repositories.RoleDao;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class RoleService {
@@ -18,6 +16,7 @@ public class RoleService {
         dao = roleDao;
     }
 
+    @Transactional
     public RoleEntity createRole(String role) {
         if (!role.startsWith("ROLE_")) {
             role = "ROLE_" + role;

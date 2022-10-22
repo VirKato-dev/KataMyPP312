@@ -62,14 +62,6 @@ public class AdminController {
      */
     @PatchMapping()
     public String edit(@ModelAttribute("newUser") UserEntity user) {
-        UserEntity oldUser = userService.get(user.getId());
-        user.setUsername(oldUser.getUsername());
-        if (!oldUser.getPassword().equals(user.getPassword()) &&
-                !"".equals(user.getPassword())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        } else {
-            user.setPassword(oldUser.getPassword());
-        }
         userService.createOrUpdate(user);
         return "redirect:/admin";
     }
