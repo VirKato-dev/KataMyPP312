@@ -30,13 +30,14 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void createOrUpdate(UserEntity user) {
-        UserEntity oldUser = get(user.getId());
-        user.setUsername(oldUser.getUsername());
-        if (!oldUser.getPassword().equals(user.getPassword()) &&
-                !"".equals(user.getPassword())) {
+        if (user.getId() != null) {
+            UserEntity oldUser = get(user.getId());
+            user.setUsername(oldUser.getUsername());
+            if (oldUser.getPassword().equals(user.getPassword()) ||
+                    "".equals(user.getPassword())) {
+                user.setPassword(oldUser.getPassword());
+            }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-        } else {
-            user.setPassword(oldUser.getPassword());
         }
         dao.save(user);
     }
