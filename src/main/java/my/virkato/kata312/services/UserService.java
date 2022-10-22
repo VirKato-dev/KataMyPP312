@@ -1,7 +1,7 @@
 package my.virkato.kata312.services;
 
 import my.virkato.kata312.entities.UserEntity;
-import my.virkato.kata312.repositories.UserDao;
+import my.virkato.kata312.repositories.UserRepo;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,17 +15,17 @@ import java.util.Collection;
 @Service
 public class UserService implements UserDetailsService {
 
-    private final UserDao dao;
+    private final UserRepo repo;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserDao userDao, PasswordEncoder passwordEncoder) {
-        dao = userDao;
+    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder) {
+        repo = userRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
-        return dao.findUserEntityByUsername(username);
+        return repo.findUserEntityByUsername(username);
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        dao.save(user);
+        repo.save(user);
     }
 
     /***
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
      */
     public Collection<UserEntity> getList() {
         ArrayList<UserEntity> list = new ArrayList<>();
-        dao.findAll().forEach(list::add);
+        repo.findAll().forEach(list::add);
         return list;
     }
 
@@ -58,11 +58,11 @@ public class UserService implements UserDetailsService {
      * @return пользователь либо null
      */
     public UserEntity get(Long id) {
-        return dao.findById(id).orElse(null);
+        return repo.findById(id).orElse(null);
     }
 
     public void delete(Long id) {
-        dao.deleteById(id);
+        repo.deleteById(id);
     }
 
 }

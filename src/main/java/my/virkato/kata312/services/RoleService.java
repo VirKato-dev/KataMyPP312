@@ -1,22 +1,19 @@
 package my.virkato.kata312.services;
 
 import my.virkato.kata312.entities.RoleEntity;
-import my.virkato.kata312.repositories.RoleDao;
+import my.virkato.kata312.repositories.RoleRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class RoleService {
 
-    private final RoleDao dao;
+    private final RoleRepo repo;
 
-    public RoleService(RoleDao roleDao) {
-        dao = roleDao;
+    public RoleService(RoleRepo roleRepo) {
+        repo = roleRepo;
     }
 
     @Transactional
@@ -24,16 +21,16 @@ public class RoleService {
         if (!role.startsWith("ROLE_")) {
             role = "ROLE_" + role;
         }
-        RoleEntity entity = dao.findRoleEntityByAuthority(role);
+        RoleEntity entity = repo.findRoleEntityByAuthority(role);
         if (entity == null) {
-            entity = dao.save(new RoleEntity(role));
+            entity = repo.save(new RoleEntity(role));
         }
         return entity;
     }
 
     public ArrayList<RoleEntity> getAvailableRoles() {
         ArrayList<RoleEntity> roles = new ArrayList<>();
-        dao.findAll().forEach(roles::add);
+        repo.findAll().forEach(roles::add);
         return roles;
     }
 }

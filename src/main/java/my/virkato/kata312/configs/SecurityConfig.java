@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req
                         .antMatchers("/", "/register").permitAll()
                         .antMatchers("/admin/**").hasRole("ADMIN")
-                        .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                        .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(req -> req
