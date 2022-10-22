@@ -69,8 +69,8 @@ public class UserService implements UserDetailsService {
     /***
      * Получить пользователя по его логину
      * @param username the username identifying the user whose data is required.
-     * @return пользователь либо null
-     * @throws UsernameNotFoundException
+     * @return пользователь либо исключение
+     * @throws UsernameNotFoundException при отсутствии пользователя с таким логином
      */
     @Override
     public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
