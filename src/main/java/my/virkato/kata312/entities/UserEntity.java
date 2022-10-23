@@ -78,14 +78,4 @@ public class UserEntity implements UserDetails {
         return Objects.hash(username, password, firstName, lastName, age, roles);
     }
 
-    /***
-     * Используется в формировании HTML-таблицы с помощью Thymeleaf
-     * @return строка с названиями ролей через пробел
-     */
-    public String rolesAsText() {
-        StringJoiner str = new StringJoiner(" ");
-        getAuthorities().forEach(s -> str.add(s.toString()));
-        return str.toString();
-    }
-
 }
