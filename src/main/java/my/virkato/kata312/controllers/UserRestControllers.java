@@ -53,9 +53,9 @@ public class UserRestControllers {
 
     // DELETE
 
-    @DeleteMapping("/admin/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        userService.delete(id);
+    @DeleteMapping("/admin")
+    public ResponseEntity<Void> delete(@RequestBody UserEntity user) {
+        userService.delete(user.getId());
         return ResponseEntity.ok().build();
     }
 
