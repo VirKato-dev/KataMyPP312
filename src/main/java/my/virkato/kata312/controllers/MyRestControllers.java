@@ -1,6 +1,8 @@
 package my.virkato.kata312.controllers;
 
+import my.virkato.kata312.entities.RoleEntity;
 import my.virkato.kata312.entities.UserEntity;
+import my.virkato.kata312.services.RoleService;
 import my.virkato.kata312.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +13,14 @@ import java.util.Collection;
 
 
 @RestController
-public class UserRestControllers {
+public class MyRestControllers {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public UserRestControllers(UserService userService) {
+    public MyRestControllers(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     // CREATE
@@ -32,6 +36,12 @@ public class UserRestControllers {
     public ResponseEntity<UserEntity> get(Authentication auth) {
         return new ResponseEntity<>(userService.loadUserByUsername(auth.getName()), HttpStatus.OK);
     }
+
+    @GetMapping("/roles")
+    public ResponseEntity<Collection<RoleEntity>> getAllRoles() {
+        return new ResponseEntity<>(roleService.getAll(), HttpStatus.OK);
+    }
+
 
     @GetMapping("/admin/{id}")
     public ResponseEntity<UserEntity> get(@PathVariable Long id) {
