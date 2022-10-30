@@ -1,3 +1,24 @@
+/***
+ * Заполнить таблицу всех пользователей
+ */
+function getUsers() {
+    fetch('/admin')
+        .then(response => response.json())
+        .then(users => {
+            document.getElementById('table-users').innerHTML = '';
+            users.forEach(user => {
+                addTr('table-users', user, true);
+            });
+        });
+}
+
+
+/***
+ * Добавить колонку в строку таблицы
+ * @param tr строка
+ * @param style стиль колонки
+ * @param text информация в ячейке
+ */
 function addTd(tr, style, text) {
     let td = document.createElement('td');
     td.className = style;
@@ -5,6 +26,13 @@ function addTd(tr, style, text) {
     tr.append(td);
 }
 
+
+/***
+ * Заполнить информацию в профиле
+ * @param id название таблицы, в которую вставляем строку
+ * @param user данные о пользователе
+ * @param mode режим отображения таблицы (true - для админа, false - для пользователя)
+ */
 function addTr(id, user, mode) {
     let tr = document.createElement('tr');
     addTd(tr, 'col-1', user.id);
@@ -27,11 +55,3 @@ function addTr(id, user, mode) {
 
     document.getElementById(id).appendChild(tr);
 }
-
-fetch('/admin')
-    .then(response => response.json())
-    .then(users => {
-        users.forEach(user => {
-            addTr('table-users', user, true);
-        })
-    });

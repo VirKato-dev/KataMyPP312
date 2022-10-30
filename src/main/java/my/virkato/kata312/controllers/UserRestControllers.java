@@ -11,7 +11,6 @@ import java.util.Collection;
 
 
 @RestController
-@RequestMapping
 public class UserRestControllers {
 
     private final UserService userService;

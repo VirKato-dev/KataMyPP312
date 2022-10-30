@@ -33,7 +33,11 @@ showModal.addEventListener('show.bs.modal', function (event) {
     let hf_delete = document.createElement('input');
     hf_delete.type = 'hidden';
     hf_delete.name = '_method';
-    hf_delete.value = 'patch';
+    hf_delete.value = 'delete';
+
+    try {
+        document.querySelector('input[name="_method"]').remove();
+    } catch (e) {}
 
     if (deleteMode === "true") {
         modalTitle.textContent = 'Удалить пользователя';
@@ -44,7 +48,6 @@ showModal.addEventListener('show.bs.modal', function (event) {
         document.querySelectorAll('.modal-body .form-control')
             .forEach(e => e.setAttribute('disabled', true));
         document.querySelector('.modal-dialog form').appendChild(hf_delete);
-        )
     } else {
         modalTitle.textContent = 'Редактировать пользователя';
         ip.removeAttribute('hidden');
@@ -54,6 +57,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
         document.querySelectorAll('.modal-body .form-control')
             .forEach(e => e.removeAttribute('disabled'));
         iid.setAttribute('disabled', true);
+        document.querySelector('.modal-dialog form').appendChild(hf_patch);
     }
 
     iid.value = user.id;
