@@ -40,7 +40,7 @@ nsubmit.addEventListener('click', e => {
 function selectedRoles(options) {
     let roles = [];
     options.forEach(o => {
-        if (o.selected) roles.push(allRoles[o.value]);
+        if (o.selected) roles.push(allRoles[o.value - 1]);
     });
     return roles;
 }

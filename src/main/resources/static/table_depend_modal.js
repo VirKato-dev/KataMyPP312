@@ -108,18 +108,3 @@ showModal.addEventListener('show.bs.modal', function (event) {
         ir.appendChild(opt);
     });
 });
-
-/***
- * Получить список выбранных ролей
- * @param options
- * @return roles список
- */
-function selectedRoles(options) {
-    let roles = [];
-    options.forEach(o => {
-        if (o.selected) {
-            roles.push(allRoles[o.value - 1]);
-        }
-    });
-    return roles;
-}
