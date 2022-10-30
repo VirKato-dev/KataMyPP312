@@ -1,10 +1,5 @@
 let showModal = document.getElementById('showModal');
 
-let allRoles;
-fetch('/roles')
-    .then(response => response.json())
-    .then(roles => allRoles = roles);
-
 showModal.addEventListener('show.bs.modal', function (event) {
     // Button that triggered the modal
     let button = event.relatedTarget;
@@ -24,40 +19,70 @@ showModal.addEventListener('show.bs.modal', function (event) {
     let ip = showModal.querySelector('#ip');
     let lp = showModal.querySelector('#lp');
     let ir = showModal.querySelector('#ir');
-    let submit = showModal.querySelector('input[type="submit"]');
-
-    let hf_patch = document.createElement('input');
-    hf_patch.type = 'hidden';
-    hf_patch.name = '_method';
-    hf_patch.value = 'patch';
-    let hf_delete = document.createElement('input');
-    hf_delete.type = 'hidden';
-    hf_delete.name = '_method';
-    hf_delete.value = 'delete';
+    let submit = showModal.querySelector('button[type="submit"]');
 
     try {
         document.querySelector('input[name="_method"]').remove();
-    } catch (e) {}
+    } catch (e) {
+    }
 
     if (deleteMode === "true") {
+        document.querySelectorAll('.modal-body .form-control')
+            .forEach(e => e.setAttribute('disabled', true));
         modalTitle.textContent = 'Удалить пользователя';
         ip.setAttribute('hidden', true);
         lp.setAttribute('hidden', true);
         submit.className = 'btn btn-danger';
-        submit.value = 'Удалить';
-        document.querySelectorAll('.modal-body .form-control')
-            .forEach(e => e.setAttribute('disabled', true));
-        document.querySelector('.modal-dialog form').appendChild(hf_delete);
+        submit.textContent = 'Удалить';
+        submit.addEventListener('click', e => {
+            let url = '/admin';
+            let requestBody = JSON.stringify({
+                id: iid.value,
+            });
+            fetch(url, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: requestBody
+            })
+                .then(reponse => {
+                    getUsers();
+                });
+        });
     } else {
+        document.querySelectorAll('.modal-body .form-control')
+            .forEach(e => e.removeAttribute('disabled'));
+        iid.setAttribute('disabled', true);
         modalTitle.textContent = 'Редактировать пользователя';
         ip.removeAttribute('hidden');
         lp.removeAttribute('hidden');
         submit.className = 'btn btn-success';
-        submit.value = 'Редактировать';
-        document.querySelectorAll('.modal-body .form-control')
-            .forEach(e => e.removeAttribute('disabled'));
-        iid.setAttribute('disabled', true);
-        document.querySelector('.modal-dialog form').appendChild(hf_patch);
+        submit.textContent = 'Редактировать';
+        submit.addEventListener('click', e => {
+            let url = '/admin';
+            let requestBody = JSON.stringify({
+                id: iid.value,
+                username: iun.value,
+                password: ip.value,
+                age: ia.value,
+                firstName: ifn.value,
+                lastName: iln.value,
+                roles: selectedRoles(ir.childNodes)
+            });
+            console.info(requestBody);
+
+            fetch(url, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: requestBody
+            })
+                .then(reponse => {
+                    getUsers();
+                });
+        });
     }
 
     iid.value = user.id;
@@ -65,6 +90,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
     iln.value = user.lastName;
     ia.value = user.age;
     iun.value = user.username;
+    ip.value = '';
     ir.replaceChildren(null);
     allRoles.forEach(role => {
         let opt = document.createElement('option');
@@ -81,4 +107,19 @@ showModal.addEventListener('show.bs.modal', function (event) {
         }
         ir.appendChild(opt);
     });
-})
+});
+
+/***
+ * Получить список выбранных ролей
+ * @param options
+ * @return roles список
+ */
+function selectedRoles(options) {
+    let roles = [];
+    options.forEach(o => {
+        if (o.selected) {
+            roles.push(allRoles[o.value - 1]);
+        }
+    });
+    return roles;
+}

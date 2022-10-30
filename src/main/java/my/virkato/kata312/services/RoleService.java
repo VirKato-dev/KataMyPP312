@@ -47,6 +47,10 @@ public class RoleService {
         return roles;
     }
 
+    public RoleEntity get(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
     // UPDATE
     // DELETE
 

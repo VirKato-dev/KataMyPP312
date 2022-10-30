@@ -39,7 +39,10 @@ public class UserService implements UserDetailsService {
             if (oldUser.getPassword().equals(user.getPassword())
                     || "".equals(user.getPassword())) {
                 user.setPassword(oldUser.getPassword());
+            } else {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
+        } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         return repo.save(user);

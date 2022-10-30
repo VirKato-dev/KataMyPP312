@@ -1,3 +1,10 @@
+let allRoles;
+
+fetch('/roles')
+    .then(response => response.json())
+    .then(roles => allRoles = roles);
+
+
 let roles = [];
 //let user;
 
