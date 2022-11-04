@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "roles",
         uniqueConstraints = @UniqueConstraint(columnNames = {"id", "authority"}))
-public class RoleEntity implements GrantedAuthority {
+public class RoleEntity implements GrantedAuthority, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

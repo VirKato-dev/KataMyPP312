@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "email"}))
-public class UserEntity implements UserDetails {
+public class UserEntity implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
