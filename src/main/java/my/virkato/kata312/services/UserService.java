@@ -27,6 +27,8 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void createOrUpdate(UserEntity user) {
+        UserEntity old = dao.findUserEntityByUsername(user.getUsername());
+        if (old != null) user.setId(old.getId());
         dao.save(user);
     }
 

@@ -25,8 +25,7 @@ import java.util.HashSet;
 
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "username"}))
 public class UserEntity implements UserDetails {
     @Id
@@ -44,6 +43,14 @@ public class UserEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<RoleEntity> roles;
+
+    public UserEntity(String username, String password, String nickname, String phoneNumber, Collection<RoleEntity> roles) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
