@@ -32,8 +32,7 @@ public class Kata312Application {
     public void init() {
         RoleEntity role1 = roleService.createRole("ADMIN");
         RoleEntity role2 = roleService.createRole("USER");
-        userService.createOrUpdate(new UserEntity("my@mail.ru",
-                passwordEncoder.encode("0000"), "Admin",
-                "+79008006050", Set.of(role1, role2)));
+        userService.createOrUpdate(new UserEntity("my@mail.ru", passwordEncoder.encode("0000"),
+                "Admin", "+79008006050", Set.of(role1, role2)));
     }
 }
