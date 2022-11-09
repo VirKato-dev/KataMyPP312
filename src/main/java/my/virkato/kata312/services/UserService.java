@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
      * @return список
      */
     public Collection<UserEntity> getList() {
-        ArrayList<UserEntity> list = new ArrayList<>();
+        Collection<UserEntity> list = new ArrayList<>();
         dao.findAll().forEach(list::add);
         return list;
     }
