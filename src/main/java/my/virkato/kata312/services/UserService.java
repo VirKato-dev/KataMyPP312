@@ -35,7 +35,6 @@ public class UserService implements UserDetailsService {
     public UserEntity createOrUpdate(UserEntity user) {
         if (user.getId() != null) {
             UserEntity oldUser = get(user.getId());
-            user.setUsername(oldUser.getUsername());
             if (oldUser.getPassword().equals(user.getPassword())
                     || "".equals(user.getPassword())) {
                 user.setPassword(oldUser.getPassword());

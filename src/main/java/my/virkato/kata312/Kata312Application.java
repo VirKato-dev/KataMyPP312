@@ -17,12 +17,10 @@ public class Kata312Application {
 
     private final UserService userService;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
 
-    public Kata312Application(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public Kata312Application(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public static void main(String[] args) {
@@ -38,7 +36,7 @@ public class Kata312Application {
         UserEntity user = new UserEntity();
         if (userService.loadUserByUsername("my@mail.ru") == null) {
             user.setUsername("my@mail.ru");
-            user.setPassword(passwordEncoder.encode("0000"));
+            user.setPassword("0000");
             user.setAge(43);
             user.setFirstName("Vir");
             user.setLastName("Kato");
@@ -52,7 +50,7 @@ public class Kata312Application {
         user = new UserEntity();
         if (userService.loadUserByUsername("user@mail.ru") == null) {
             user.setUsername("user@mail.ru");
-            user.setPassword(passwordEncoder.encode("1111"));
+            user.setPassword("1111");
             user.setAge(30);
             user.setFirstName("Das");
             user.setLastName("Cat");
