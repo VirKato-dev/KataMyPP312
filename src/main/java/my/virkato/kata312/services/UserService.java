@@ -32,12 +32,11 @@ public class UserService implements UserDetailsService {
     public void createOrUpdate(UserEntity user) {
         if (user.getId() != null) {
             UserEntity oldUser = get(user.getId());
-            user.setUsername(oldUser.getUsername());
-            if (oldUser.getPassword().equals(user.getPassword()) ||
-                    "".equals(user.getPassword())) {
+            if (oldUser.getPassword().equals(user.getPassword()) || "".equals(user.getPassword())) {
                 user.setPassword(oldUser.getPassword());
+            } else {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         dao.save(user);
     }

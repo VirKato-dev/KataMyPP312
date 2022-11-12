@@ -60,7 +60,7 @@ public class AdminController {
     /***
      * Сохранить изменённого пользователя
      */
-    @PatchMapping()
+    @PatchMapping
     public String edit(@ModelAttribute("newUser") UserEntity user) {
         userService.createOrUpdate(user);
         return "redirect:/admin";

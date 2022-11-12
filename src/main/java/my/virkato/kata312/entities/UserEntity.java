@@ -19,7 +19,7 @@ import java.util.StringJoiner;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "email"}))
+@Table(name = "users")
 public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,8 +17,7 @@ import javax.persistence.GenerationType;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "roles",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"id", "authority"}))
+@Table(name = "roles")
 public class RoleEntity implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
