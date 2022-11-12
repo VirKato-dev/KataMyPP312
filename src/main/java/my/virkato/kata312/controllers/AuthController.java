@@ -18,14 +18,4 @@ public class AuthController {
     public String loginForm() {
         return "/auth/login";
     }
-
-    @PostMapping
-    public String checking(Model model) {
-        List<String> list = new ArrayList<>();
-        list.add((String) model.getAttribute("username"));
-        list.add((String) model.getAttribute("password"));
-
-        model.addAttribute("messages", list);
-        return "redirect:/error";
-    }
 }
