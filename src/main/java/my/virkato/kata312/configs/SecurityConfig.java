@@ -10,12 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    SuccessUserHandler successUserHandler;
-
-    public SecurityConfig(SuccessUserHandler successUserHandler) {
-        this.successUserHandler = successUserHandler;
-    }
-
     @Bean
     public SecurityFilterChain createSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -27,7 +21,6 @@ public class SecurityConfig {
                 )
                 .formLogin(req -> req
                         .loginPage("/login").permitAll()
-                        .successHandler(successUserHandler)
                 )
                 .build();
     }
