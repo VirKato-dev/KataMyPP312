@@ -31,6 +31,9 @@ public class SecurityConfig {
                         .permitAll()
                         .successHandler(successUserHandler)
                 )
+                .logout(req -> req
+                        .logoutUrl("/logout").permitAll()
+                )
                 .build();
     }
 
