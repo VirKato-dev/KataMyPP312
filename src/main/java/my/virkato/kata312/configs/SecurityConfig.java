@@ -21,8 +21,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(req -> req
-                        .loginPage("/login")
-                        .permitAll()
+                        .loginPage("/login").permitAll()
                 )
                 .build();
     }
