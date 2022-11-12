@@ -41,7 +41,7 @@ function addTr(id, user, mode) {
     addTd(tr, 'col-1', user.age);
     addTd(tr, 'col-2 text-nowrap', user.username);
     let rolesText = '';
-    user.roles.forEach(role => {
+    user.authorities.forEach(role => {
         rolesText += `${role.authority.substring(5)} `;
     });
     addTd(tr, 'col-sm-2 col-xl-1 text-nowrap', rolesText);

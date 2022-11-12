@@ -47,7 +47,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
                 body: requestBody
             })
                 .then(reponse => {
-                    getUsers();
+                    fetchMyRoles();
                 });
         });
     } else {
@@ -80,7 +80,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
                 body: requestBody
             })
                 .then(reponse => {
-                    getUsers();
+                    fetchMyRoles();
                 });
         });
     }
@@ -97,7 +97,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
         opt.innerText = role.authority.substring(5);
         opt.value = role.id;
         let has;
-        user.roles.forEach(r => {
+        user.authorities.forEach(r => {
             if (r.authority === role.authority) has = true;
         });
         if (has) {

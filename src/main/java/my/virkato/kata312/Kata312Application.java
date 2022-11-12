@@ -6,7 +6,6 @@ import my.virkato.kata312.services.RoleService;
 import my.virkato.kata312.services.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
@@ -40,7 +39,7 @@ public class Kata312Application {
             user.setAge(43);
             user.setFirstName("Vir");
             user.setLastName("Kato");
-            user.setRoles(roles);
+            user.setAuthorities(roles);
             userService.createOrUpdate(user);
         }
 
@@ -54,7 +53,7 @@ public class Kata312Application {
             user.setAge(30);
             user.setFirstName("Das");
             user.setLastName("Cat");
-            user.setRoles(roles);
+            user.setAuthorities(roles);
             userService.createOrUpdate(user);
         }
     }

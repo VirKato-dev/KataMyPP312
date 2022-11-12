@@ -17,7 +17,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "email"}))
+@Table(name = "users")
 public class UserEntity implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +34,12 @@ public class UserEntity implements UserDetails, Serializable {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<RoleEntity> roles;
+    private Collection<RoleEntity> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles != null
-                ? new HashSet<>(roles)
+        return authorities != null
+                ? new HashSet<>(authorities)
                 : Collections.emptySet();
     }
 
@@ -72,12 +72,12 @@ public class UserEntity implements UserDetails, Serializable {
                 && Objects.equals(firstName, that.firstName)
                 && Objects.equals(lastName, that.lastName)
                 && Objects.equals(age, that.age)
-                && roles.equals(that.roles);
+                && authorities.equals(that.authorities);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, firstName, lastName, age, roles);
+        return Objects.hash(username, password, firstName, lastName, age, authorities);
     }
 
 }
