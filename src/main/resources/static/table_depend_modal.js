@@ -68,7 +68,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
                 age: ia.value,
                 firstName: ifn.value,
                 lastName: iln.value,
-                roles: selectedRoles(ir.childNodes)
+                authorities: selectedRoles(ir.childNodes)
             });
             console.info(requestBody);
 
