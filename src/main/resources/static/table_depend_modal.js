@@ -46,7 +46,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
                 },
                 body: requestBody
             })
-                .then(reponse => {
+                .then(response => {
                     fetchMyRoles();
                 });
         });
@@ -79,7 +79,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
                 },
                 body: requestBody
             })
-                .then(reponse => {
+                .then(response => {
                     fetchMyRoles();
                 });
         });
@@ -91,7 +91,7 @@ showModal.addEventListener('show.bs.modal', function (event) {
     ia.value = user.age;
     iun.value = user.username;
     ip.value = '';
-    ir.replaceChildren(null);
+    ir.replaceChildren('');
     allRoles.forEach(role => {
         let opt = document.createElement('option');
         opt.innerText = role.authority.substring(5);
