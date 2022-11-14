@@ -17,12 +17,12 @@ public class SecurityConfig {
         return http
                 .csrf().disable() //лучше отключить пока
                 .authorizeHttpRequests(req -> req
-//                        .antMatchers("/admin/**", "/roles/**").hasRole("ADMIN")
-                        .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+//                        .antMatchers("/admin/**", "/roles/**").hasRole("ADMIN") // разрешено аннотациями методов
+//                        .antMatchers("/user").hasAnyRole("USER", "ADMIN") // разрешено следующим фильтром
                         .anyRequest().authenticated()
                 )
                 .formLogin(req -> req
-                        .loginPage("/login").permitAll()
+                        .loginPage("/login").permitAll() // своя форма аутентификации
                 )
                 .build();
     }
