@@ -2,6 +2,9 @@ package my.virkato.kata312.services;
 
 import my.virkato.kata312.entities.UserEntity;
 import my.virkato.kata312.repositories.UserRepo;
+import org.springframework.boot.web.servlet.filter.ApplicationContextHeaderFilter;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
